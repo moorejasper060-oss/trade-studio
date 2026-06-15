@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade Studio — your own local trading bot</title>
+<meta name="description" content="Run your own automated trading bot on your own computer. Your Alpaca keys, your machine. Paper or live. Free for Windows.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<style>
+  :root{
+    --bg:#080c18; --panel:rgba(255,255,255,0.035); --bd:rgba(255,255,255,0.09);
+    --bd2:rgba(255,255,255,0.16); --tx:#eef2fb; --mut:#aab3c7; --faint:#6b7488;
+    --teal:#34d3a6; --purple:#8b80ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 520px at 70% -8%, rgba(139,128,255,0.16), transparent 60%),
+       radial-gradient(900px 480px at 10% 4%, rgba(52,211,166,0.12), transparent 55%), var(--bg);
+       color:var(--tx); font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       line-height:1.6; -webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  .sec{padding:56px 0;border-top:0.5px solid var(--bd)}
+  .sec h2{font-size:28px;font-weight:600;letter-spacing:-0.3px;text-align:center}
+  .sec .lead{font-size:16px;color:var(--mut);text-align:center;max-width:600px;margin:12px auto 0}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:17px}
+  .navdl{background:var(--teal);color:#06281f;font-weight:600;font-size:14px;padding:9px 18px;border-radius:10px}
+  .hero{text-align:center;padding:50px 0 30px}
+  .hero h1{font-size:46px;font-weight:600;letter-spacing:-0.6px;line-height:1.08}
+  .hero p.tag{font-size:19px;color:var(--mut);margin:16px auto 0;max-width:560px}
+  .dl{display:inline-flex;align-items:center;gap:9px;background:var(--teal);color:#06281f;font-weight:600;
+      font-size:16px;padding:15px 30px;border-radius:13px;margin-top:26px;transition:transform .12s, box-shadow .12s}
+  .dl:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(52,211,166,0.25)}
+  .micro{font-size:13px;color:var(--faint);margin-top:13px}
+  .soonbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,128,255,0.14);border:0.5px solid rgba(139,128,255,0.4);color:#cfc9ff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;letter-spacing:.3px}
+  .dl.soon{background:rgba(255,255,255,0.05);color:var(--mut);border:0.5px solid var(--bd2);box-shadow:none;cursor:default}
+  .dl.soon:hover{transform:none;box-shadow:none}
+  .navdl.soon{background:rgba(255,255,255,0.06);color:var(--mut)}
+  .preview{margin:38px auto 0;max-width:880px;background:#0b1226;border:0.5px solid var(--bd);
+           border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.45)}
+  .pv-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:0.5px solid var(--bd);background:#0d1430}
+  .pv-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .pv-bar .nm{font-size:12px;font-weight:600;color:#9aa4ba;letter-spacing:.7px;text-transform:uppercase}
+  .pv-bar .st{font-size:12px;color:var(--faint)}
+  .pv-body{padding:18px}
+  .pv-card{background:linear-gradient(120deg, rgba(139,128,255,0.14), rgba(52,211,166,0.06));border:0.5px solid var(--bd);border-radius:12px;padding:15px 17px}
+  .pv-card .eq{font-size:26px;font-weight:600}
+  .pv-card .sub{font-size:13px;color:var(--mut);margin-top:2px}
+  .pv-label{font-size:11px;color:var(--faint);letter-spacing:.6px;text-transform:uppercase;margin:18px 0 8px}
+  .pv-chart{background:rgba(255,255,255,0.02);border:0.5px solid var(--bd);border-radius:12px;padding:10px}
+  .pv-ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+  .chip{background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:9px;padding:9px 0;text-align:center;font-size:12px;color:#cdd4e2}
+  .chip.go{background:rgba(52,211,166,0.14);border-color:rgba(52,211,166,0.4);color:var(--teal);font-weight:600}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+  .step{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px}
+  .step .n{width:28px;height:28px;border-radius:8px;background:rgba(52,211,166,0.16);color:var(--teal);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step h3{font-size:15px;font-weight:600;margin:11px 0 4px}
+  .step p{font-size:13px;color:var(--mut)}
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+  .feat{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:20px}
+  .feat .ic{font-size:22px}
+  .feat h3{font-size:16px;font-weight:600;margin:11px 0 5px}
+  .feat p{font-size:14px;color:var(--mut)}
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+  .mode{border-radius:14px;padding:22px;border:0.5px solid var(--bd)}
+  .mode.paper{background:rgba(52,211,166,0.07);border-color:rgba(52,211,166,0.3)}
+  .mode.live{background:rgba(226,75,74,0.06);border-color:rgba(226,75,74,0.3)}
+  .mode .badge{font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px}
+  .mode.paper .badge{background:rgba(52,211,166,0.18);color:var(--teal)}
+  .mode.live .badge{background:rgba(226,75,74,0.18);color:#ff8c8c}
+  .mode h3{font-size:18px;font-weight:600;margin:12px 0 6px}
+  .mode p{font-size:14px;color:var(--mut)}
+  .faq{max-width:760px;margin:30px auto 0;display:flex;flex-direction:column;gap:10px}
+  .faq details{background:var(--panel);border:0.5px solid var(--bd);border-radius:12px;padding:4px 18px}
+  .faq summary{cursor:pointer;padding:14px 0;font-weight:500;font-size:15px;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;color:var(--mut)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{font-size:14px;color:var(--mut);padding:0 0 16px}
+  .cta{text-align:center}
+  footer{border-top:0.5px solid var(--bd);padding:34px 0 44px;text-align:center}
+  footer .disc{font-size:12px;color:var(--faint);max-width:640px;margin:0 auto;line-height:1.7}
+  footer .by{font-size:14px;color:var(--mut);margin-top:18px}
+  footer .by b{color:var(--tx);font-weight:600}
+  footer .cr{font-size:12px;color:#4d5468;margin-top:8px}
+  @media(max-width:760px){.hero h1{font-size:34px}.feats,.steps,.modes,.pv-ctrls{grid-template-columns:1fr}.pv-ctrls{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="brand">
+      <svg width="30" height="30" viewBox="0 0 120 120" style="border-radius:8px"><defs><linearGradient id="g1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#34d3a6"/><stop offset="1" stop-color="#8b80ff"/></linearGradient></defs><rect x="3" y="3" width="114" height="114" rx="27" fill="#0c1430"/><g fill="url(#g1)"><rect x="30" y="66" width="12" height="24" rx="3"/><rect x="54" y="50" width="12" height="36" rx="3"/><rect x="78" y="36" width="12" height="44" rx="3"/></g></svg>
+      Trade Studio
+    </span>
+    <a class="navdl soon" href="#get">Coming soon</a>
+  </nav>
+
+  <section class="hero">
+    <svg width="84" height="84" viewBox="0 0 120 120" style="border-radius:20px"><defs><linearGradient id="g2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#34d3a6"/><stop offset="1" stop-color="#8b80ff"/></linearGradient></defs><rect x="3" y="3" width="114" height="114" rx="27" fill="#0c1430"/><g fill="url(#g2)"><rect x="30" y="66" width="12" height="24" rx="3"/><rect x="54" y="50" width="12" height="36" rx="3"/><rect x="78" y="36" width="12" height="44" rx="3"/></g></svg>
+    <h1 style="margin-top:18px">Run your own trading bot.<br>Locally.</h1>
+    <p class="tag">Your Alpaca keys, your machine. Practice in paper mode or trade live — Trade Studio runs entirely on your own computer.</p>
+    <a class="dl soon" aria-disabled="true">⏳&nbsp; Coming soon</a>
+    <div class="micro">Free for Windows 10/11 · public release landing soon · your keys never leave your PC</div>
+
+    <div class="preview" aria-label="Trade Studio dashboard preview">
+      <div class="pv-bar"><span class="dot"></span><span class="nm">Trade Studio</span><span class="st">· running · paper</span></div>
+      <div class="pv-body">
+        <div class="pv-card"><div class="eq">$10,000.00</div><div class="sub">paper account · 12 symbols · running</div></div>
+        <div class="pv-label">Equity</div>
+        <div class="pv-chart">
+          <svg viewBox="0 0 820 150" width="100%" height="120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="ln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#34d3a6"/><stop offset="1" stop-color="#8b80ff"/></linearGradient>
+              <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(52,211,166,0.22)"/><stop offset="1" stop-color="rgba(52,211,166,0)"/></linearGradient>
+            </defs>
+            <polygon points="0,96 90,84 170,98 250,80 340,108 430,92 520,100 620,78 720,90 820,82 820,150 0,150" fill="url(#fl)"/>
+            <polyline points="0,96 90,84 170,98 250,80 340,108 430,92 520,100 620,78 720,90 820,82" fill="none" stroke="url(#ln)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pv-ctrls"><div class="chip go">▶ Resume</div><div class="chip">Re-scan</div><div class="chip">EOD Liquidate</div><div class="chip">Restart</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>What is Trade Studio?</h2>
+    <p class="lead">A desktop trading bot for Windows that runs on <em>your</em> computer and trades <em>your</em> Alpaca account — no servers, no sign-up, no data leaving your machine.</p>
+    <div style="max-width:680px;margin:24px auto 0;color:var(--mut);font-size:15px;line-height:1.8">
+      <p>Trade Studio watches the market with a set of classic, transparent statistical signals — Bollinger Bands, RSI, MACD and volume on intraday candles. No AI black box, no hype: just rules you can reason about. When the signals line up, it places trades through your own Alpaca brokerage account and manages them with stop-losses and take-profits.</p>
+      <p style="margin-top:14px">It's built to keep you in control. The bot boots <strong style="color:var(--tx)">paused</strong>, you can practice risk-free in paper mode for as long as you like, and your API keys are stored only on your machine — Trade Studio has no server and never sees your credentials. It's a tool, not a money machine.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <h2>How it works</h2>
+    <p class="lead">From download to running bot in a few minutes.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Download &amp; install</h3><p>One-click installer, no admin needed. Adds a desktop shortcut.</p></div>
+      <div class="step"><div class="n">2</div><h3>Create Alpaca keys</h3><p>Sign up free at alpaca.markets and generate your API keys (paper or live).</p></div>
+      <div class="step"><div class="n">3</div><h3>Paste &amp; test</h3><p>Drop your keys into the setup wizard — it verifies them read-only before saving.</p></div>
+      <div class="step"><div class="n">4</div><h3>Press Resume</h3><p>The bot runs in your system tray and trades for you. Pause anytime.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Everything's on your machine</h2>
+    <div class="feats">
+      <div class="feat"><div class="ic">🔒</div><h3>Local-first</h3><p>No servers, no account, no cloud. Your API keys are stored only on your computer.</p></div>
+      <div class="feat"><div class="ic">⚗️</div><h3>Paper &amp; live</h3><p>Practice risk-free with paper trading, or connect your real Alpaca account when you're ready.</p></div>
+      <div class="feat"><div class="ic">⚡</div><h3>One-click setup</h3><p>Install, paste your keys, press resume. A guided wizard handles the rest.</p></div>
+      <div class="feat"><div class="ic">📊</div><h3>Statistical, not hype</h3><p>Classic indicators on intraday candles — transparent rules, no AI black box.</p></div>
+      <div class="feat"><div class="ic">🖥️</div><h3>Lives in your tray</h3><p>Runs quietly in the background. Open, pause, or quit from the system tray.</p></div>
+      <div class="feat"><div class="ic">📈</div><h3>Your own dashboard</h3><p>Live equity, positions, win-rate and controls — all in a clean local dashboard.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Paper or live — you choose</h2>
+    <div class="modes">
+      <div class="mode paper"><span class="badge">Recommended to start</span><h3>Paper trading</h3><p>Trade with simulated money on Alpaca's paper account. Zero real-money risk — perfect for learning how the bot behaves before risking a cent.</p></div>
+      <div class="mode live"><span class="badge">Real money</span><h3>Live trading</h3><p>Connect your funded Alpaca account to trade for real. Gated behind an explicit confirmation, with clear warnings — because real money means real risk of loss.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Is it really free?</summary><p>Yes — Trade Studio is a free download. You only need a free Alpaca brokerage account to connect it to.</p></details>
+      <details><summary>Do my API keys leave my computer?</summary><p>No. Your keys are saved only on your own machine (in your local app folder). There's no Trade Studio server and nothing is uploaded anywhere.</p></details>
+      <details><summary>Will it make me money?</summary><p>There are no guarantees. Trade Studio is a tool that runs a rules-based strategy — it is not financial advice and not a money machine. Trading carries real risk of loss. Start in paper mode.</p></details>
+      <details><summary>What do I need to run it?</summary><p>Windows 10 or 11 and a free Alpaca account. That's it — no Python, no setup beyond pasting your keys.</p></details>
+      <details><summary>Is my money at risk in live mode?</summary><p>Yes. Live mode places real orders with your real funds and can lose money. It's gated behind an explicit confirmation. Practice in paper mode first.</p></details>
+      <details><summary>How do I stop it?</summary><p>Pause it from the dashboard at any time, or quit entirely from the system-tray icon.</p></details>
+    </div>
+  </section>
+
+  <section class="sec cta" id="get">
+    <h2>Get Trade Studio</h2>
+    <div class="soonbadge" style="margin-top:14px">⏳ Coming soon</div>
+    <p class="lead" style="margin-top:14px">The Windows download isn't live just yet — we're putting the finishing touches on the public release. Check back shortly.</p>
+    <a class="dl soon" aria-disabled="true" style="margin-top:22px">⏳&nbsp; Coming soon</a>
+    <div class="micro">Free · Windows 10/11 · v0.1</div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p class="disc">Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss — including, and especially, in live mode. You are solely responsible for your own trades and for securing your own account. Not affiliated with Alpaca.</p>
+    <p class="by">Built by <b>Jasper Moore</b></p>
+    <p class="cr">© 2026 Jasper Moore · Trade Studio · v0.1 · Windows</p>
+  </div>
+</footer>
+</body>
+</html>
