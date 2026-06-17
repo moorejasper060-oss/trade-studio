@@ -61,6 +61,18 @@
   .feat .ic{font-size:22px}
   .feat h3{font-size:16px;font-weight:600;margin:11px 0 5px}
   .feat p{font-size:14px;color:var(--mut)}
+  .cmp-title{font-size:16px;font-weight:600;text-align:center;margin-top:44px}
+  .cmp-wrap{overflow-x:auto;margin-top:18px;border:0.5px solid var(--bd);border-radius:14px}
+  .cmp{width:100%;min-width:580px;border-collapse:collapse;font-size:14px}
+  .cmp th,.cmp td{padding:13px 16px;text-align:center;border-bottom:0.5px solid var(--bd)}
+  .cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+  .cmp thead th{font-size:15px;font-weight:600;color:var(--tx)}
+  .cmp thead th small{display:block;font-size:12px;font-weight:500;color:var(--faint);margin-top:3px}
+  .cmp tbody th{text-align:left;font-weight:500;color:var(--mut);font-size:13.5px}
+  .cmp td{color:var(--tx)}
+  .cmp .yes{color:var(--teal);font-weight:700}
+  .cmp .no{color:var(--faint)}
+  .cmp .hl{background:rgba(139,128,255,0.07)}
   .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
   .mode{border-radius:14px;padding:22px;border:0.5px solid var(--bd)}
   .mode.paper{background:rgba(52,211,166,0.07);border-color:rgba(52,211,166,0.3)}
@@ -189,7 +201,29 @@
         <div class="micro" style="margin-top:12px">⏳ Coming soon</div>
       </div>
     </div>
-    <div class="micro" style="margin-top:16px">Live trading uses real money and can lose it — including amplified losses on margin. Not financial advice.</div>
+    <h3 class="cmp-title">What's included in each plan</h3>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Paper<small>Free</small></th>
+            <th class="hl">Live Solo<small>€9/mo · €90/yr</small></th>
+            <th>Live Plus<small>€19/mo · €190/yr</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>Unlimited paper bots</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
+          <tr><th>Live trading (real money)</th><td class="no">—</td><td class="hl">1 account</td><td>up to 3</td></tr>
+          <tr><th>Strategy presets (Patient · Balanced · Aggressive)</th><td>Balanced only</td><td class="hl yes">✓ all 3</td><td class="yes">✓ all 3</td></tr>
+          <tr><th>Crypto trading + crypto presets</th><td class="no">—</td><td class="hl no">—</td><td class="yes">✓</td></tr>
+          <tr><th>Local-first — your keys stay on your machine</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
+          <tr><th>Free auto-updates</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="micro" style="margin-top:14px">Margin is always on; optional leverage unlocks over $2,000 of equity, on any plan. Yearly billing saves ~17%.</div>
+    <div class="micro" style="margin-top:10px">Live trading uses real money and can lose it — including amplified losses on margin. Not financial advice.</div>
   </section>
 
   <section class="sec">
