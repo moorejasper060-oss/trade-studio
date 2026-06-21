@@ -61,6 +61,20 @@
   .feat .ic{font-size:22px}
   .feat h3{font-size:16px;font-weight:600;margin:11px 0 5px}
   .feat p{font-size:14px;color:var(--mut)}
+  .brokers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+  .broker{display:flex;flex-direction:column;gap:9px;background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px;color:inherit;transition:transform .12s, border-color .12s}
+  a.broker:hover{transform:translateY(-2px);border-color:var(--bd2)}
+  .bk-top{display:flex;align-items:center;justify-content:space-between}
+  .bk-logo{display:inline-flex}
+  .bk-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
+  .bk-badge.ok{background:rgba(52,211,166,0.16);color:var(--teal)}
+  .bk-badge.soon{background:rgba(139,128,255,0.16);color:#cfc9ff}
+  .broker h3{font-size:16px;font-weight:600;margin-top:2px}
+  .broker p{font-size:13.5px;color:var(--mut);flex:1}
+  .bk-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .bk-tags span{font-size:11px;color:var(--faint);background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:6px;padding:2px 8px}
+  .bk-link{font-size:12.5px;color:var(--teal);font-weight:600}
+  .broker.builtin .bk-link{color:var(--faint)}
   .cmp-title{font-size:16px;font-weight:600;text-align:center;margin-top:44px}
   .cmp-wrap{overflow-x:auto;margin-top:18px;border:0.5px solid var(--bd);border-radius:14px}
   .cmp{width:100%;min-width:580px;border-collapse:collapse;font-size:14px}
@@ -95,7 +109,7 @@
   footer .by{font-size:14px;color:var(--mut);margin-top:18px}
   footer .by b{color:var(--tx);font-weight:600}
   footer .cr{font-size:12px;color:#4d5468;margin-top:8px}
-  @media(max-width:760px){.hero h1{font-size:34px}.feats,.steps,.modes,.pv-ctrls{grid-template-columns:1fr}.pv-ctrls{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:760px){.hero h1{font-size:34px}.feats,.steps,.modes,.brokers,.pv-ctrls{grid-template-columns:1fr}.pv-ctrls{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -168,6 +182,81 @@
       <div class="feat"><div class="ic">🖥️</div><h3>Lives in your tray</h3><p>Runs quietly in the background. Open, pause, or quit from the system tray.</p></div>
       <div class="feat"><div class="ic">📈</div><h3>Your own dashboard</h3><p>Live equity, positions, win-rate and controls — all in a clean local dashboard.</p></div>
     </div>
+  </section>
+
+  <section class="sec" id="brokers">
+    <h2>Works with your broker</h2>
+    <p class="lead">Bring the broker you already use — or start in seconds on the built-in Simulator. Paper trading is free on every broker; only going live needs a subscription.</p>
+    <div class="brokers">
+
+      <div class="broker builtin">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#0c1430"/><rect x="8" y="20" width="4" height="7" rx="1" fill="#34d3a6"/><rect x="15" y="14" width="4" height="13" rx="1" fill="#5fa9d2"/><rect x="22" y="9" width="4" height="18" rx="1" fill="#8b80ff"/></svg></span>
+          <span class="bk-badge ok">Available</span>
+        </div>
+        <h3>Simulator</h3>
+        <p>A built-in fake-money market for stocks &amp; crypto. No broker, no sign-up — the fastest way to try Trade Studio.</p>
+        <div class="bk-tags"><span>stocks</span><span>crypto</span></div>
+        <span class="bk-link">No account needed — included</span>
+      </div>
+
+      <a class="broker" href="https://alpaca.markets" target="_blank" rel="noopener">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#FFD400"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#0c1430" text-anchor="middle">A</text></svg></span>
+          <span class="bk-badge ok">Available</span>
+        </div>
+        <h3>Alpaca</h3>
+        <p>US stocks &amp; crypto. Free unlimited paper trading, fractional shares.</p>
+        <div class="bk-tags"><span>stocks</span><span>crypto</span></div>
+        <span class="bk-link">alpaca.markets ↗</span>
+      </a>
+
+      <a class="broker" href="https://tradier.com" target="_blank" rel="noopener">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#1A6DF0"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">T</text></svg></span>
+          <span class="bk-badge soon">Coming soon</span>
+        </div>
+        <h3>Tradier</h3>
+        <p>US stocks &amp; options. Free developer sandbox for paper trading.</p>
+        <div class="bk-tags"><span>stocks</span><span>options</span></div>
+        <span class="bk-link">tradier.com ↗</span>
+      </a>
+
+      <a class="broker" href="https://docs.ccxt.com" target="_blank" rel="noopener">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#F7931A"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">₿</text></svg></span>
+          <span class="bk-badge soon">Coming soon</span>
+        </div>
+        <h3>Crypto exchanges</h3>
+        <p>100+ exchanges (Coinbase, Kraken, Binance…) via CCXT. Free testnets.</p>
+        <div class="bk-tags"><span>crypto</span></div>
+        <span class="bk-link">docs.ccxt.com ↗</span>
+      </a>
+
+      <a class="broker" href="https://www.oanda.com" target="_blank" rel="noopener">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#C8102E"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">O</text></svg></span>
+          <span class="bk-badge soon">Coming soon</span>
+        </div>
+        <h3>OANDA</h3>
+        <p>Forex &amp; CFDs. Free practice (demo) accounts for paper trading.</p>
+        <div class="bk-tags"><span>forex</span></div>
+        <span class="bk-link">oanda.com ↗</span>
+      </a>
+
+      <a class="broker" href="https://www.interactivebrokers.com" target="_blank" rel="noopener">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#D81222"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">IB</text></svg></span>
+          <span class="bk-badge soon">Coming soon</span>
+        </div>
+        <h3>Interactive Brokers</h3>
+        <p>Global multi-asset. Free paper trading via the IBKR Gateway.</p>
+        <div class="bk-tags"><span>stocks</span><span>options</span><span>futures</span><span>forex</span></div>
+        <span class="bk-link">interactivebrokers.com ↗</span>
+      </a>
+
+    </div>
+    <div class="micro" style="margin-top:16px">“Available” brokers work today; “Coming soon” brokers are on the roadmap. Logos are placeholders, not official brand marks.</div>
   </section>
 
   <section class="sec">
