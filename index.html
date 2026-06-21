@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trade Studio — your own local trading bot</title>
-<meta name="description" content="Run your own automated trading bot on your own computer. Your Alpaca keys, your machine. Paper or live. Free download for macOS.">
+<meta name="description" content="Run your own automated trading bot on your own computer. Your Alpaca keys, your machine. Paper or live. Free download for macOS and Windows.">
 <link rel="icon" type="image/png" href="assets/icon.png">
 <style>
   :root{
@@ -105,16 +105,18 @@
       <svg width="30" height="30" viewBox="0 0 120 120" style="border-radius:8px"><defs><linearGradient id="g1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#34d3a6"/><stop offset="1" stop-color="#8b80ff"/></linearGradient></defs><rect x="3" y="3" width="114" height="114" rx="27" fill="#0c1430"/><g fill="url(#g1)"><rect x="30" y="66" width="12" height="24" rx="3"/><rect x="54" y="50" width="12" height="36" rx="3"/><rect x="78" y="36" width="12" height="44" rx="3"/></g></svg>
       Trade Studio
     </span>
-    <a class="navdl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg">Download for Mac</a>
+    <a class="navdl" href="#get">Download</a>
   </nav>
 
   <section class="hero">
     <svg width="84" height="84" viewBox="0 0 120 120" style="border-radius:20px"><defs><linearGradient id="g2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#34d3a6"/><stop offset="1" stop-color="#8b80ff"/></linearGradient></defs><rect x="3" y="3" width="114" height="114" rx="27" fill="#0c1430"/><g fill="url(#g2)"><rect x="30" y="66" width="12" height="24" rx="3"/><rect x="54" y="50" width="12" height="36" rx="3"/><rect x="78" y="36" width="12" height="44" rx="3"/></g></svg>
     <h1 style="margin-top:18px">Run your own trading bot.<br>Locally.</h1>
     <p class="tag">Your Alpaca keys, your machine. Practice in paper mode or trade live — Trade Studio runs entirely on your own computer.</p>
-    <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg">⬇&nbsp; Download for macOS</a>
-    <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your Mac</div>
-    <div class="micro" style="margin-top:6px">🪟 Windows version — coming soon</div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
+      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:0">⬇&nbsp; Download for macOS</a>
+      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
+    </div>
+    <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your computer</div>
 
     <div class="preview" aria-label="Trade Studio dashboard preview">
       <div class="pv-bar"><span class="dot"></span><span class="nm">Trade Studio</span><span class="st">· running · paper</span></div>
@@ -138,7 +140,7 @@
 
   <section class="sec">
     <h2>What is Trade Studio?</h2>
-    <p class="lead">A desktop trading bot for macOS that runs on <em>your</em> computer and trades <em>your</em> Alpaca account — no servers, no sign-up, no data leaving your machine.</p>
+    <p class="lead">A desktop trading bot for macOS and Windows that runs on <em>your</em> computer and trades <em>your</em> Alpaca account — no servers, no sign-up, no data leaving your machine.</p>
     <div style="max-width:680px;margin:24px auto 0;color:var(--mut);font-size:15px;line-height:1.8">
       <p>Trade Studio watches the market with a set of classic, transparent statistical signals — Bollinger Bands, RSI, MACD and volume on intraday candles. No AI black box, no hype: just rules you can reason about. When the signals line up, it places trades through your own Alpaca brokerage account and manages them with stop-losses and take-profits.</p>
       <p style="margin-top:14px">It's built to keep you in control. The bot boots <strong style="color:var(--tx)">paused</strong>, you can practice risk-free in paper mode for as long as you like, and your API keys are stored only on your machine — Trade Studio has no server and never sees your credentials. It's a tool, not a money machine.</p>
@@ -233,9 +235,9 @@
       <details><summary>Is it free?</summary><p>Paper trading is free, forever — unlimited practice accounts, no card required. Live trading with real money is a paid subscription (Live Solo €9/mo, Live Plus €19/mo). You'll also need a free Alpaca brokerage account to connect.</p></details>
       <details><summary>Do my API keys leave my computer?</summary><p>No. Your keys are saved only on your own machine (in your local app folder). There's no Trade Studio server and nothing is uploaded anywhere.</p></details>
       <details><summary>Will it make me money?</summary><p>There are no guarantees. Trade Studio is a tool that runs a rules-based strategy — it is not financial advice and not a money machine. Trading carries real risk of loss. Start in paper mode.</p></details>
-      <details><summary>What do I need to run it?</summary><p>A Mac running macOS and a free Alpaca account. That's it — no Python, no setup beyond pasting your keys. (A Windows version is coming soon.)</p></details>
+      <details><summary>What do I need to run it?</summary><p>A Mac (macOS) or a Windows 10/11 PC, plus a free Alpaca account. That's it — no Python, no setup beyond pasting your keys.</p></details>
       <details><summary>Will I always get the newest version?</summary><p>Yes — the download button always serves the latest release, so you never grab an old build. After installing, Trade Studio also auto-updates itself from inside the app.</p></details>
-      <details><summary>macOS says it can't verify the developer?</summary><p>The build is currently unsigned, so on first launch macOS shows a warning. Right-click (or Control-click) the app and choose <b>Open</b>, then confirm — you only need to do this once.</p></details>
+      <details><summary>It says the app is from an unknown / unverified developer?</summary><p>The builds are currently unsigned, so your OS warns you on first launch. On <b>macOS</b>: right-click (or Control-click) the app → <b>Open</b> → confirm. On <b>Windows</b>: if SmartScreen appears, click <b>More info → Run anyway</b>. You only need to do this once.</p></details>
       <details><summary>Is my money at risk in live mode?</summary><p>Yes. Live mode places real orders with your real funds and can lose money. It's gated behind an explicit confirmation. Practice in paper mode first.</p></details>
       <details><summary>How do I stop it?</summary><p>Pause it from the dashboard at any time, or quit entirely from the system-tray icon.</p></details>
     </div>
@@ -243,11 +245,13 @@
 
   <section class="sec cta" id="get">
     <h2>Get Trade Studio</h2>
-    <p class="lead" style="margin-top:14px">Free download for macOS — paper trading is free forever. The button always grabs the latest release, so you're never out of date.</p>
-    <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:22px">⬇&nbsp; Download for macOS</a>
-    <div class="micro">Free · macOS · always the latest release (<span class="js-ver">v1.0.9</span>)</div>
-    <div class="micro" style="margin-top:8px">First launch: right-click the app → <b>Open</b> (unsigned build). It auto-updates after that.</div>
-    <div class="soonbadge" style="margin-top:20px">🪟 Windows — coming soon</div>
+    <p class="lead" style="margin-top:14px">Free download for macOS &amp; Windows — paper trading is free forever. The buttons always grab the latest release, so you're never out of date.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px">
+      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:0">⬇&nbsp; Download for macOS</a>
+      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
+    </div>
+    <div class="micro" style="margin-top:14px">Free · macOS &amp; Windows · always the latest release (<span class="js-ver">v1.0.9</span>)</div>
+    <div class="micro" style="margin-top:8px">First launch is unsigned: on macOS right-click → <b>Open</b>; on Windows click <b>More info → Run anyway</b>. Auto-updates after that.</div>
   </section>
 </div>
 
@@ -255,7 +259,7 @@
   <div class="wrap">
     <p class="disc">Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss — including, and especially, in live mode. You are solely responsible for your own trades and for securing your own account. Not affiliated with Alpaca.</p>
     <p class="by">Built by <b>Jasper Moore</b></p>
-    <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.0.9</span> · macOS</p>
+    <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.0.9</span> · macOS &amp; Windows</p>
     <p style="margin-top:12px;font-size:12px;color:#6b7488">
       <a href="impressum.html" style="color:#8b80ff;text-decoration:none">Impressum</a> ·
       <a href="terms.html" style="color:#8b80ff;text-decoration:none">Terms</a> ·
