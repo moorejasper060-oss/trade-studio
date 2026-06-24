@@ -51,6 +51,9 @@
   .pv-ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
   .chip{background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:9px;padding:9px 0;text-align:center;font-size:12px;color:#cdd4e2}
   .chip.go{background:rgba(52,211,166,0.14);border-color:rgba(52,211,166,0.4);color:var(--teal);font-weight:600}
+  .reel-frame{position:relative;width:100%;aspect-ratio:16/9;background:#050b11}
+  .reel-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .watch{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--teal);font-weight:600;margin-top:16px}
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
   .step{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px}
   .step .n{width:28px;height:28px;border-radius:8px;background:rgba(52,211,166,0.16);color:var(--teal);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
@@ -130,6 +133,7 @@
       <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:0">⬇&nbsp; Download for macOS</a>
       <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
     </div>
+    <div><a class="watch" href="#demo">▶&nbsp; Watch the 60-second demo</a></div>
     <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your computer</div>
 
     <div class="preview" aria-label="Trade Studio dashboard preview">
@@ -148,6 +152,17 @@
           </svg>
         </div>
         <div class="pv-ctrls"><div class="chip go">▶ Resume</div><div class="chip">Re-scan</div><div class="chip">EOD Liquidate</div><div class="chip">Restart</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="demo">
+    <h2>See it in action</h2>
+    <p class="lead">A sixty-second tour — spin up bots, open a bot's Studio, choose a strategy preset, and track your watchlist in real time. Tap <strong style="color:var(--tx)">🔊 Click for sound</strong> inside the player for the voice-over.</p>
+    <div class="preview" style="margin-top:34px" aria-label="Trade Studio product tour video">
+      <div class="pv-bar"><span class="dot"></span><span class="nm">Trade Studio</span><span class="st">· product tour · 60s</span></div>
+      <div class="reel-frame">
+        <iframe src="reel.html" title="Trade Studio — 60-second product tour" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
     </div>
   </section>
