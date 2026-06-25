@@ -15,12 +15,12 @@
 <meta name="twitter:image" content="https://tradestudio.digga.ai/assets/og-logo.png">
 <style>
   :root{
-    --bg:#080c18; --panel:rgba(255,255,255,0.035); --bd:rgba(255,255,255,0.09);
+    --bg:#080a12; --panel:rgba(255,255,255,0.035); --bd:rgba(255,255,255,0.09);
     --bd2:rgba(255,255,255,0.16); --tx:#eef2fb; --mut:#aab3c7; --faint:#6b7488;
-    --teal:#65c466; --purple:#3fb6a8;
+    --teal:#55b685; --purple:#3fb6a8;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:radial-gradient(1100px 520px at 70% -8%, rgba(101,196,102,0.16), transparent 60%),
+  body{background:radial-gradient(1100px 520px at 70% -8%, rgba(85,182,133,0.16), transparent 60%),
        radial-gradient(900px 480px at 10% 4%, rgba(63,182,168,0.12), transparent 55%), var(--bg);
        color:var(--tx); font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
        line-height:1.6; -webkit-font-smoothing:antialiased}
@@ -39,7 +39,7 @@
       font-size:16px;padding:15px 30px;border-radius:13px;margin-top:26px;transition:transform .12s, box-shadow .12s}
   .dl:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(63,182,168,0.25)}
   .micro{font-size:13px;color:var(--faint);margin-top:13px}
-  .soonbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(101,196,102,0.14);border:0.5px solid rgba(101,196,102,0.4);color:#c8f6d3;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;letter-spacing:.3px}
+  .soonbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(85,182,133,0.14);border:0.5px solid rgba(85,182,133,0.4);color:#c8f6d3;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;letter-spacing:.3px}
   .dl.soon{background:rgba(255,255,255,0.05);color:var(--mut);border:0.5px solid var(--bd2);box-shadow:none;cursor:default}
   .dl.soon:hover{transform:none;box-shadow:none}
   .navdl.soon{background:rgba(255,255,255,0.06);color:var(--mut)}
@@ -50,7 +50,7 @@
   .pv-bar .nm{font-size:12px;font-weight:600;color:#9aa4ba;letter-spacing:.7px;text-transform:uppercase}
   .pv-bar .st{font-size:12px;color:var(--faint)}
   .pv-body{padding:18px}
-  .pv-card{background:linear-gradient(120deg, rgba(101,196,102,0.14), rgba(63,182,168,0.06));border:0.5px solid var(--bd);border-radius:12px;padding:15px 17px}
+  .pv-card{background:linear-gradient(120deg, rgba(85,182,133,0.14), rgba(63,182,168,0.06));border:0.5px solid var(--bd);border-radius:12px;padding:15px 17px}
   .pv-card .eq{font-size:26px;font-weight:600}
   .pv-card .sub{font-size:13px;color:var(--mut);margin-top:2px}
   .pv-label{font-size:11px;color:var(--faint);letter-spacing:.6px;text-transform:uppercase;margin:18px 0 8px}
@@ -78,7 +78,7 @@
   .bk-logo{display:inline-flex}
   .bk-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
   .bk-badge.ok{background:rgba(63,182,168,0.16);color:var(--teal)}
-  .bk-badge.soon{background:rgba(101,196,102,0.16);color:#c8f6d3}
+  .bk-badge.soon{background:rgba(85,182,133,0.16);color:#c8f6d3}
   .broker h3{font-size:16px;font-weight:600;margin-top:2px}
   .broker p{font-size:13.5px;color:var(--mut);flex:1}
   .bk-tags{display:flex;flex-wrap:wrap;gap:6px}
@@ -96,7 +96,7 @@
   .cmp td{color:var(--tx)}
   .cmp .yes{color:var(--teal);font-weight:700}
   .cmp .no{color:var(--faint)}
-  .cmp .hl{background:rgba(101,196,102,0.07)}
+  .cmp .hl{background:rgba(85,182,133,0.07)}
   .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
   .mode{border-radius:14px;padding:22px;border:0.5px solid var(--bd)}
   .mode.paper{background:rgba(63,182,168,0.07);border-color:rgba(63,182,168,0.3)}
@@ -133,7 +133,7 @@
   </nav>
 
   <section class="hero">
-    <img src="assets/icon.png" width="84" height="84" alt="Trade Studio" style="display:block;margin:0 auto">
+    <img src="assets/icon.png" width="88" height="88" alt="Trade Studio" style="display:block;margin:0 auto;filter:drop-shadow(0 10px 26px rgba(63,182,168,.34))">
     <h1 style="margin-top:18px">Run your own trading bot.<br>Locally.</h1>
     <p class="tag">Your broker, your keys, your machine. Practice in paper mode or trade live — Trade Studio runs entirely on your own computer.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
@@ -151,7 +151,7 @@
         <div class="pv-chart">
           <svg viewBox="0 0 820 150" width="100%" height="120" preserveAspectRatio="none">
             <defs>
-              <linearGradient id="ln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#65c466"/><stop offset="1" stop-color="#3fb6a8"/></linearGradient>
+              <linearGradient id="ln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#55b685"/><stop offset="1" stop-color="#3fb6a8"/></linearGradient>
               <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(63,182,168,0.22)"/><stop offset="1" stop-color="rgba(63,182,168,0)"/></linearGradient>
             </defs>
             <polygon points="0,96 90,84 170,98 250,80 340,108 430,92 520,100 620,78 720,90 820,82 820,150 0,150" fill="url(#fl)"/>
@@ -300,8 +300,8 @@
         <p>Unlimited paper accounts — the full bot and dashboard, with zero real-money risk.</p>
         <div class="micro" style="margin-top:12px">⏳ Coming soon</div>
       </div>
-      <div class="feat" style="border-color:rgba(101,196,102,0.45);background:rgba(101,196,102,0.07)">
-        <span style="display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(101,196,102,0.2);color:#c8f6d3">Most popular</span>
+      <div class="feat" style="border-color:rgba(85,182,133,0.45);background:rgba(85,182,133,0.07)">
+        <span style="display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(85,182,133,0.2);color:#c8f6d3">Most popular</span>
         <h3 style="margin-top:12px">Live Solo</h3>
         <p style="font-size:30px;font-weight:700;color:var(--tx);margin:6px 0 4px">€9<small style="font-size:14px;font-weight:500;color:var(--mut)"> / mo</small></p>
         <p>One live account with real money. Or €90/year. Cancel anytime.</p>
