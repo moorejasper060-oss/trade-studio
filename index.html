@@ -32,6 +32,9 @@
   nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
   .brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:17px}
   .navdl{background:var(--teal);color:#06281f;font-weight:600;font-size:14px;padding:9px 18px;border-radius:10px}
+  .navlink{font-size:14px;color:var(--mut);transition:color .12s}
+  .navlink:hover{color:var(--tx)}
+  .navright{display:flex;align-items:center;gap:20px}
   .hero{text-align:center;padding:50px 0 30px}
   .hero h1{font-size:46px;font-weight:600;letter-spacing:-0.6px;line-height:1.08}
   .hero p.tag{font-size:19px;color:var(--mut);margin:16px auto 0;max-width:560px}
@@ -129,7 +132,10 @@
       <img src="assets/icon.png" width="30" height="30" alt="Trade Studio" style="display:block">
       Trade Studio
     </span>
-    <a class="navdl" href="#get">Download</a>
+    <span class="navright">
+      <a class="navlink" href="news.html">News</a>
+      <a class="navdl" href="#get">Download</a>
+    </span>
   </nav>
 
   <section class="hero">
@@ -372,6 +378,7 @@
     <p class="by">Built by <b>Jasper Moore</b></p>
     <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.0.9</span> · macOS &amp; Windows</p>
     <p style="margin-top:12px;font-size:12px;color:#6b7488">
+      <a href="news.html" style="color:#3fb6a8;text-decoration:none">News</a> ·
       <a href="impressum.html" style="color:#3fb6a8;text-decoration:none">Impressum</a> ·
       <a href="terms.html" style="color:#3fb6a8;text-decoration:none">Terms</a> ·
       <a href="privacy.html" style="color:#3fb6a8;text-decoration:none">Privacy</a> ·

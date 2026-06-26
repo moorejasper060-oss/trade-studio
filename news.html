@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News &amp; Updates — Trade Studio</title>
+<meta name="description" content="What's new in Trade Studio — new trading strategies, reliability improvements and product updates. Newest first.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<meta property="og:title" content="News &amp; Updates — Trade Studio">
+<meta property="og:description" content="What's new in Trade Studio — new trading strategies, reliability improvements and product updates.">
+<meta property="og:image" content="https://tradestudio.digga.ai/assets/og-logo.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tradestudio.digga.ai/assets/og-logo.png">
+<style>
+  :root{
+    --bg:#080a12; --panel:rgba(255,255,255,0.035); --bd:rgba(255,255,255,0.09);
+    --bd2:rgba(255,255,255,0.16); --tx:#eef2fb; --mut:#aab3c7; --faint:#6b7488;
+    --teal:#55b685; --purple:#3fb6a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 520px at 70% -8%, rgba(85,182,133,0.16), transparent 60%),
+       radial-gradient(900px 480px at 10% 4%, rgba(63,182,168,0.12), transparent 55%), var(--bg);
+       color:var(--tx); font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       line-height:1.6; -webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  .sec{padding:56px 0;border-top:0.5px solid var(--bd)}
+  .sec h2{font-size:28px;font-weight:600;letter-spacing:-0.3px;text-align:center}
+  .sec .lead{font-size:16px;color:var(--mut);text-align:center;max-width:600px;margin:12px auto 0}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:17px}
+  .navdl{background:var(--teal);color:#06281f;font-weight:600;font-size:14px;padding:9px 18px;border-radius:10px}
+  .navlink{font-size:14px;color:var(--mut);transition:color .12s}
+  .navlink:hover{color:var(--tx)}
+  .navright{display:flex;align-items:center;gap:20px}
+  .hero{text-align:center;padding:50px 0 30px}
+  .hero h1{font-size:46px;font-weight:600;letter-spacing:-0.6px;line-height:1.08}
+  .hero p.tag{font-size:19px;color:var(--mut);margin:16px auto 0;max-width:560px}
+  .dl{display:inline-flex;align-items:center;gap:9px;background:var(--teal);color:#06281f;font-weight:600;
+      font-size:16px;padding:15px 30px;border-radius:13px;margin-top:26px;transition:transform .12s, box-shadow .12s}
+  .dl:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(63,182,168,0.25)}
+  .micro{font-size:13px;color:var(--faint);margin-top:13px}
+  .soonbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(85,182,133,0.14);border:0.5px solid rgba(85,182,133,0.4);color:#c8f6d3;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;letter-spacing:.3px}
+  .dl.soon{background:rgba(255,255,255,0.05);color:var(--mut);border:0.5px solid var(--bd2);box-shadow:none;cursor:default}
+  .dl.soon:hover{transform:none;box-shadow:none}
+  .navdl.soon{background:rgba(255,255,255,0.06);color:var(--mut)}
+  .preview{margin:38px auto 0;max-width:880px;background:#0b1226;border:0.5px solid var(--bd);
+           border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.45)}
+  .pv-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:0.5px solid var(--bd);background:#0d1430}
+  .pv-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .pv-bar .nm{font-size:12px;font-weight:600;color:#9aa4ba;letter-spacing:.7px;text-transform:uppercase}
+  .pv-bar .st{font-size:12px;color:var(--faint)}
+  .pv-body{padding:18px}
+  .pv-card{background:linear-gradient(120deg, rgba(85,182,133,0.14), rgba(63,182,168,0.06));border:0.5px solid var(--bd);border-radius:12px;padding:15px 17px}
+  .pv-card .eq{font-size:26px;font-weight:600}
+  .pv-card .sub{font-size:13px;color:var(--mut);margin-top:2px}
+  .pv-label{font-size:11px;color:var(--faint);letter-spacing:.6px;text-transform:uppercase;margin:18px 0 8px}
+  .pv-chart{background:rgba(255,255,255,0.02);border:0.5px solid var(--bd);border-radius:12px;padding:10px}
+  .pv-ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+  .chip{background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:9px;padding:9px 0;text-align:center;font-size:12px;color:#cdd4e2}
+  .chip.go{background:rgba(63,182,168,0.14);border-color:rgba(63,182,168,0.4);color:var(--teal);font-weight:600}
+  .reel-frame{position:relative;width:100%;aspect-ratio:16/9;background:#050b11}
+  .reel-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .watch{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--teal);font-weight:600;margin-top:16px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+  .step{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px}
+  .step .n{width:28px;height:28px;border-radius:8px;background:rgba(63,182,168,0.16);color:var(--teal);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step h3{font-size:15px;font-weight:600;margin:11px 0 4px}
+  .step p{font-size:13px;color:var(--mut)}
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+  .feat{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:20px}
+  .feat .ic{font-size:22px}
+  .feat h3{font-size:16px;font-weight:600;margin:11px 0 5px}
+  .feat p{font-size:14px;color:var(--mut)}
+  .brokers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+  .broker{display:flex;flex-direction:column;gap:9px;background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px;color:inherit;transition:transform .12s, border-color .12s}
+  a.broker:hover{transform:translateY(-2px);border-color:var(--bd2)}
+  .bk-top{display:flex;align-items:center;justify-content:space-between}
+  .bk-logo{display:inline-flex}
+  .bk-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
+  .bk-badge.ok{background:rgba(63,182,168,0.16);color:var(--teal)}
+  .bk-badge.soon{background:rgba(85,182,133,0.16);color:#c8f6d3}
+  .broker h3{font-size:16px;font-weight:600;margin-top:2px}
+  .broker p{font-size:13.5px;color:var(--mut);flex:1}
+  .bk-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .bk-tags span{font-size:11px;color:var(--faint);background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:6px;padding:2px 8px}
+  .bk-link{font-size:12.5px;color:var(--teal);font-weight:600}
+  .broker.builtin .bk-link{color:var(--faint)}
+  .cmp-title{font-size:16px;font-weight:600;text-align:center;margin-top:44px}
+  .cmp-wrap{overflow-x:auto;margin-top:18px;border:0.5px solid var(--bd);border-radius:14px}
+  .cmp{width:100%;min-width:580px;border-collapse:collapse;font-size:14px}
+  .cmp th,.cmp td{padding:13px 16px;text-align:center;border-bottom:0.5px solid var(--bd)}
+  .cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+  .cmp thead th{font-size:15px;font-weight:600;color:var(--tx)}
+  .cmp thead th small{display:block;font-size:12px;font-weight:500;color:var(--faint);margin-top:3px}
+  .cmp tbody th{text-align:left;font-weight:500;color:var(--mut);font-size:13.5px}
+  .cmp td{color:var(--tx)}
+  .cmp .yes{color:var(--teal);font-weight:700}
+  .cmp .no{color:var(--faint)}
+  .cmp .hl{background:rgba(85,182,133,0.07)}
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+  .mode{border-radius:14px;padding:22px;border:0.5px solid var(--bd)}
+  .mode.paper{background:rgba(63,182,168,0.07);border-color:rgba(63,182,168,0.3)}
+  .mode.live{background:rgba(226,75,74,0.06);border-color:rgba(226,75,74,0.3)}
+  .mode .badge{font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px}
+  .mode.paper .badge{background:rgba(63,182,168,0.18);color:var(--teal)}
+  .mode.live .badge{background:rgba(226,75,74,0.18);color:#ff8c8c}
+  .mode h3{font-size:18px;font-weight:600;margin:12px 0 6px}
+  .mode p{font-size:14px;color:var(--mut)}
+  .faq{max-width:760px;margin:30px auto 0;display:flex;flex-direction:column;gap:10px}
+  .faq details{background:var(--panel);border:0.5px solid var(--bd);border-radius:12px;padding:4px 18px}
+  .faq summary{cursor:pointer;padding:14px 0;font-weight:500;font-size:15px;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;color:var(--mut)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{font-size:14px;color:var(--mut);padding:0 0 16px}
+  .cta{text-align:center}
+  footer{border-top:0.5px solid var(--bd);padding:34px 0 44px;text-align:center}
+  footer .disc{font-size:12px;color:var(--faint);max-width:640px;margin:0 auto;line-height:1.7}
+  footer .by{font-size:14px;color:var(--mut);margin-top:18px}
+  footer .by b{color:var(--tx);font-weight:600}
+  footer .cr{font-size:12px;color:#4d5468;margin-top:8px}
+  /* News feed */
+  .news-list{max-width:720px;margin:38px auto 0;display:flex;flex-direction:column;gap:18px}
+  .news-item{background:var(--panel);border:0.5px solid var(--bd);border-radius:16px;padding:24px 26px}
+  .news-item.feature{background:linear-gradient(120deg, rgba(85,182,133,0.10), rgba(63,182,168,0.045));border-color:rgba(85,182,133,0.30);padding:30px 30px}
+  .news-date{font-size:11px;color:var(--faint);letter-spacing:.6px;text-transform:uppercase;font-weight:600}
+  .news-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#06281f;background:var(--teal);padding:4px 11px;border-radius:999px;margin-top:12px}
+  .news-item h3{font-size:19px;font-weight:600;letter-spacing:-0.2px;margin:12px 0 8px}
+  .news-item.feature h3{font-size:25px;margin-top:14px}
+  .news-item p{font-size:14.5px;color:var(--mut);line-height:1.75}
+  .news-item p + p{margin-top:12px}
+  @media(max-width:760px){.hero h1{font-size:34px}.feats,.steps,.modes,.brokers,.pv-ctrls{grid-template-columns:1fr}.pv-ctrls{grid-template-columns:repeat(2,1fr)}.news-item.feature h3{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="index.html">
+      <img src="assets/icon.png" width="30" height="30" alt="Trade Studio" style="display:block">
+      Trade Studio
+    </a>
+    <span class="navright">
+      <a class="navlink" href="news.html">News</a>
+      <a class="navdl" href="index.html#get">Download</a>
+    </span>
+  </nav>
+
+  <section class="hero" style="padding:46px 0 14px">
+    <img src="assets/icon.png" width="60" height="60" alt="Trade Studio" style="display:block;margin:0 auto;filter:drop-shadow(0 10px 26px rgba(63,182,168,.34))">
+    <h1 style="margin-top:16px;font-size:40px">News &amp; Updates</h1>
+    <p class="tag">What's new in Trade Studio — new strategies, improvements and fixes. Newest first.</p>
+  </section>
+
+  <section style="padding:14px 0 56px">
+    <div class="news-list">
+
+      <article class="news-item feature">
+        <div class="news-date">June 2026 · v1.2.13</div>
+        <span class="news-tag">New strategy</span>
+        <h3>New strategy: VWAP Reclaim</h3>
+        <p>Trade Studio now lets you choose how each bot trades. Alongside the original Classic Trend engine, there's a new intraday strategy called <strong style="color:var(--tx)">VWAP Reclaim</strong>. It waits for a stock to lose its session VWAP — the volume-weighted average price the market anchors to — then buys the reclaim when price pushes back above it inside an uptrend. Winners ride a wide, ATR-based target, and every position is flattened by the close, so you carry no overnight risk.</p>
+        <p>We selected it from research across roughly 130 strategies as the strongest intraday setup that still held up after realistic trading costs. It ships with its own curated, high-volatility watchlist — high-beta movers and liquid leveraged ETFs — because that's where the edge tends to live. Choose it per-bot in the strategy panel, with Patient, Balanced and Aggressive presets. It's long-only, so treat it as one to get to know on paper first — it's available now to paper trade.</p>
+      </article>
+
+      <article class="news-item">
+        <div class="news-date">Earlier</div>
+        <h3>Smoother Windows auto-updates</h3>
+        <p>Updating on Windows is now hands-off. When a new version is ready, Trade Studio closes and restarts itself cleanly instead of leaving a half-finished install behind — so you're always on the latest build without a manual relaunch.</p>
+      </article>
+
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p class="disc">Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss — including, and especially, in live mode. You are solely responsible for your own trades and for securing your own account. Not affiliated with Alpaca, Tradier, Interactive Brokers, OANDA, or any other broker or exchange.</p>
+    <p class="by">Built by <b>Jasper Moore</b></p>
+    <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.0.9</span> · macOS &amp; Windows</p>
+    <p style="margin-top:12px;font-size:12px;color:#6b7488">
+      <a href="news.html" style="color:#3fb6a8;text-decoration:none">News</a> ·
+      <a href="impressum.html" style="color:#3fb6a8;text-decoration:none">Impressum</a> ·
+      <a href="terms.html" style="color:#3fb6a8;text-decoration:none">Terms</a> ·
+      <a href="privacy.html" style="color:#3fb6a8;text-decoration:none">Privacy</a> ·
+      <a href="refund.html" style="color:#3fb6a8;text-decoration:none">Refunds &amp; Withdrawal</a>
+    </p>
+  </div>
+</footer>
+<script>
+// Keep the displayed version in sync with the latest GitHub release (button already
+// points at /releases/latest/download, which always serves the newest build).
+(function(){
+  try{
+    fetch('https://api.github.com/repos/moorejasper060-oss/trade-studio/releases/latest')
+      .then(function(r){return r.ok ? r.json() : null;})
+      .then(function(d){
+        if(d && d.tag_name){
+          var v = d.tag_name.replace(/^v/,'');
+          var els = document.querySelectorAll('.js-ver');
+          for(var i=0;i<els.length;i++){ els[i].textContent = 'v'+v; }
+        }
+      }).catch(function(){});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
