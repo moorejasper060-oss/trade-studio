@@ -42,6 +42,14 @@
       font-size:16px;padding:15px 30px;border-radius:13px;margin-top:26px;transition:transform .12s, box-shadow .12s}
   .dl:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(63,182,168,0.25)}
   .micro{font-size:13px;color:var(--faint);margin-top:13px}
+  .cmdbox{margin:18px auto 0;max-width:600px;text-align:left;background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:16px 18px;font-size:13.5px;color:var(--mut);line-height:1.6}
+  .cmdbox b{color:var(--tx)}
+  .cmdbox code{display:block;margin:10px 0;padding:11px 13px;background:#05070d;border:0.5px solid var(--bd);border-radius:9px;color:#7fe0b0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;overflow-x:auto;white-space:pre;user-select:all;-webkit-user-select:all}
+  .newsbanner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;max-width:680px;margin:30px auto 0;background:linear-gradient(120deg, rgba(85,182,133,0.13), rgba(63,182,168,0.05));border:0.5px solid var(--bd);border-radius:14px;padding:14px 20px;text-align:left}
+  .newsbanner .nb-pill{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#06281f;background:var(--teal);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .newsbanner .nb-txt{flex:1;min-width:230px;font-size:14px;color:var(--tx)}
+  .newsbanner .nb-txt span{color:var(--mut)}
+  .newsbanner a.nb-link{color:#7fe0b0;font-weight:600;font-size:14px;white-space:nowrap}
   .soonbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(85,182,133,0.14);border:0.5px solid rgba(85,182,133,0.4);color:#c8f6d3;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;letter-spacing:.3px}
   .dl.soon{background:rgba(255,255,255,0.05);color:var(--mut);border:0.5px solid var(--bd2);box-shadow:none;cursor:default}
   .dl.soon:hover{transform:none;box-shadow:none}
@@ -148,6 +156,12 @@
     </div>
     <div><a class="watch" href="#demo">▶&nbsp; Watch the 60-second demo</a></div>
     <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your computer</div>
+
+    <div class="newsbanner">
+      <span class="nb-pill">New · v1.2.19</span>
+      <div class="nb-txt"><b>Swing Trend</b> — a new daily strategy that buys 55-day breakouts and rides the trend for weeks. <span>Trades rarely, by design.</span></div>
+      <a class="nb-link" href="news.html">Read what's new →</a>
+    </div>
 
     <div class="preview" aria-label="Trade Studio dashboard preview">
       <div class="pv-bar"><span class="dot"></span><span class="nm">Trade Studio</span><span class="st">· running · paper</span></div>
@@ -356,7 +370,7 @@
       <details><summary>Will it make me money?</summary><p>There are no guarantees. Trade Studio is a tool that runs a rules-based strategy — it is not financial advice and not a money machine. Trading carries real risk of loss. Start in paper mode.</p></details>
       <details><summary>What do I need to run it?</summary><p>A Mac (macOS) or a Windows 10/11 PC. To trade a real broker you'll add a free account at one of the six supported backends (Alpaca, Tradier, Interactive Brokers, a crypto exchange, OANDA) — or use the built-in Simulator with no account at all. No Python, no setup beyond pasting your keys.</p></details>
       <details><summary>Will I always get the newest version?</summary><p>Yes — the download button always serves the latest release, so you never grab an old build. After installing, Trade Studio also auto-updates itself from inside the app.</p></details>
-      <details><summary>It says the app is from an unknown / unverified developer?</summary><p>The builds are currently unsigned, so your OS warns you on first launch. On <b>macOS</b>: right-click (or Control-click) the app → <b>Open</b> → confirm. On <b>Windows</b>: if SmartScreen appears, click <b>More info → Run anyway</b>. You only need to do this once.</p></details>
+      <details><summary>macOS says the app “can't be opened” or “is damaged”?</summary><p>The Mac build isn't notarized with an Apple Developer&nbsp;ID yet, so macOS quarantines it on download — sometimes with a “can't be opened,” sometimes a “damaged” message. To run it: drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder, open <b>Terminal</b>, and run this once:</p><p><code style="display:block;padding:10px 12px;background:#05070d;border-radius:8px;color:#7fe0b0;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;overflow-x:auto;white-space:pre;user-select:all">xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code></p><p>Then open Trade&nbsp;Studio normally. This just clears the “downloaded from the internet” flag macOS adds to unsigned apps — safe because you got it from this site. A signed build is on the way. <b>On Windows:</b> if SmartScreen appears, click <b>More info → Run anyway</b>.</p></details>
       <details><summary>Is my money at risk in live mode?</summary><p>Yes. Live mode places real orders with your real funds and can lose money. It's gated behind an explicit confirmation. Practice in paper mode first.</p></details>
       <details><summary>How do I stop it?</summary><p>Pause it from the dashboard at any time, or quit entirely from the system-tray icon.</p></details>
     </div>
@@ -370,7 +384,18 @@
       <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
     </div>
     <div class="micro" style="margin-top:14px">Free · macOS &amp; Windows · always the latest release (<span class="js-ver">v1.0.9</span>)</div>
-    <div class="micro" style="margin-top:8px">First launch is unsigned: on macOS right-click → <b>Open</b>; on Windows click <b>More info → Run anyway</b>. Auto-updates after that.</div>
+    <div class="micro" style="margin-top:8px">First launch is unsigned. On <b>Windows</b>: if SmartScreen appears, click <b>More info → Run anyway</b>. On <b>macOS</b>, see the one-time step below 👇 Auto-updates after that.</div>
+    <div class="cmdbox">
+      <b>🍎 First launch on macOS</b><br>
+      The Mac app isn't notarized with an Apple Developer&nbsp;ID yet, so macOS may say it <b>“can't be opened”</b> or <b>“is damaged.”</b> That's expected — here's how to run it:
+      <ol style="margin:10px 0 4px;padding-left:20px">
+        <li>Open the downloaded <b>.dmg</b> and drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder.</li>
+        <li>Open <b>Terminal</b> (press ⌘-Space, type <b>Terminal</b>, hit Return).</li>
+        <li>Paste this command and press Return:</li>
+      </ol>
+      <code>xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code>
+      Now open <b>Trade&nbsp;Studio</b> normally (double-click). You only do this once. The command just clears the “downloaded from the internet” flag macOS adds to unsigned apps — safe because you downloaded it here. A signed build is on the way.
+    </div>
   </section>
 </div>
 
