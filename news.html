@@ -157,6 +157,15 @@
   <section style="padding:14px 0 56px">
     <div class="news-list">
 
+      <article class="news-item feature">
+        <div class="news-date">June 2026 · v1.2.19</div>
+        <span class="news-tag">New strategy</span>
+        <h3>Swing Trend — a slower, daily strategy that rides the big moves</h3>
+        <p>Most trading bots dart in and out all day. Our research keeps pointing the other way: the steadier edge is in slower, daily trend-following. <strong>Swing Trend</strong> is Trade Studio's first daily strategy — it buys a stock that breaks out to a new 55-day high while its longer-term trend is pointing up, then holds on and rides the move with a wide trailing stop, letting winners run for weeks.</p>
+        <p>It works very differently from the intraday strategies, so it's upfront about that. Swing Trend checks for a new trade <strong>only once a day</strong>, just after the US market opens — so keep Trade Studio running at that time so it doesn't miss its entry. It <strong>trades very rarely</strong> (often weeks between trades — that's by design, not the bot sitting idle) and it <strong>holds positions overnight</strong>, which means it carries overnight and gap risk. It's long-only, US stocks only, and we strongly recommend running it on paper first. You'll find it under <em>Strategy</em> on any stock bot, with a clear notice explaining exactly how it behaves. Classic and VWAP Reclaim are unchanged.</p>
+        <p>This release also adds a quiet safety improvement: Trade Studio now refuses to open a second copy of itself, so two windows can never end up fighting over the same accounts.</p>
+      </article>
+
       <article class="news-item">
         <div class="news-date">June 2026 · v1.2.18</div>
         <span class="news-tag">Accuracy</span>
