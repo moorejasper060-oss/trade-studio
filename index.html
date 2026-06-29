@@ -418,5 +418,68 @@
   }catch(e){}
 })();
 </script>
+
+<!-- macOS one-time setup: surfaced at download time so it isn't missed (full steps also live at #get) -->
+<style>
+  .macmodal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(3,5,10,0.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .macmodal[hidden]{display:none}
+  .macmodal-box{position:relative;max-width:460px;width:100%;background:#0b1226;border:0.5px solid rgba(255,255,255,0.16);border-radius:18px;padding:30px 28px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.5);color:#eef2fb}
+  .macmodal-emoji{font-size:34px;text-align:center}
+  .macmodal-box h3{font-size:21px;font-weight:600;margin:8px 0 12px;letter-spacing:-0.2px;text-align:center}
+  .macmodal-box p{font-size:14px;color:#aab3c7;line-height:1.65}
+  .macmodal-box ol{margin:12px 0;padding-left:20px;font-size:14px;color:#aab3c7;line-height:1.7}
+  .macmodal-cmd{display:flex;gap:8px;align-items:stretch;margin:12px 0 6px}
+  .macmodal-cmd code{flex:1;display:block;padding:11px 12px;background:#05070d;border:0.5px solid rgba(255,255,255,0.09);border-radius:9px;color:#7fe0b0;font-family:ui-monospace,Menlo,monospace;font-size:12px;overflow-x:auto;white-space:pre;user-select:all}
+  .macmodal-cmd button{flex:0 0 auto;background:#55b685;color:#06281f;font-weight:700;font-size:13px;border:0;border-radius:9px;padding:0 14px;cursor:pointer}
+  .macmodal-note{font-size:12.5px;color:#6b7488;margin-top:10px}
+  .macmodal-ok{display:block;margin:18px auto 0;background:#55b685;color:#06281f;font-weight:700;font-size:15px;border:0;border-radius:11px;padding:12px 26px;cursor:pointer}
+  .macmodal-x{position:absolute;top:10px;right:14px;background:none;border:0;color:#aab3c7;font-size:26px;line-height:1;cursor:pointer}
+  .mac-hero-note{margin:14px auto 0;font-size:13px;color:#c8f6d3;background:rgba(85,182,133,0.12);border:0.5px solid rgba(85,182,133,0.35);border-radius:999px;padding:8px 16px;display:inline-flex;gap:7px;align-items:center;cursor:pointer}
+</style>
+<div id="macModal" class="macmodal" role="dialog" aria-modal="true" aria-labelledby="macModalTitle" hidden>
+  <div class="macmodal-box">
+    <button class="macmodal-x" aria-label="Close" onclick="closeMacModal()">&times;</button>
+    <div class="macmodal-emoji">🍎</div>
+    <h3 id="macModalTitle">One quick step on macOS</h3>
+    <p>Your download has started. The Mac app isn't notarized with an Apple Developer&nbsp;ID <em>yet</em>, so on first launch macOS may say it <b>“can't be opened”</b> or <b>“is damaged.”</b> That's expected — do this once:</p>
+    <ol>
+      <li>Open the downloaded <b>.dmg</b> and drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder.</li>
+      <li>Open <b>Terminal</b> (press <b>⌘-Space</b>, type <b>Terminal</b>, press Return).</li>
+      <li>Paste this command and press Return:</li>
+    </ol>
+    <div class="macmodal-cmd">
+      <code id="macCmd">xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code>
+      <button id="macCopy" type="button" onclick="copyMacCmd()">Copy</button>
+    </div>
+    <p class="macmodal-note">Then open <b>Trade&nbsp;Studio</b> normally — you only do this once. It just clears the “downloaded from the internet” flag macOS adds to unsigned apps (safe, since you got it here). A signed build is on the way; the app auto-updates after this.</p>
+    <button class="macmodal-ok" type="button" onclick="closeMacModal()">Got it</button>
+  </div>
+</div>
+<script>
+(function(){
+  try{
+    var modal = document.getElementById('macModal');
+    var isMac = /Mac/.test(navigator.platform || '') || (/Mac OS X/.test(navigator.userAgent) && !/iPhone|iPad|iPod/.test(navigator.userAgent));
+    window.closeMacModal = function(){ if(modal){ modal.hidden = true; } };
+    window.copyMacCmd = function(){
+      var el = document.getElementById('macCmd'); if(!el){ return; }
+      if(navigator.clipboard){ navigator.clipboard.writeText(el.textContent).catch(function(){}); }
+      var b = document.getElementById('macCopy'); if(b){ b.textContent = 'Copied ✓'; setTimeout(function(){ b.textContent = 'Copy'; }, 1500); }
+    };
+    function openMac(){ if(modal){ modal.hidden = false; } }
+    var dmg = document.querySelectorAll('a[href$="TradeStudio.dmg"]');
+    for(var i=0;i<dmg.length;i++){ dmg[i].addEventListener('click', function(){ setTimeout(openMac, 300); }); }
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeMacModal(); } });
+    if(modal){ modal.addEventListener('click', function(e){ if(e.target === modal){ closeMacModal(); } }); }
+    if(isMac && dmg.length){
+      var row = dmg[0].parentNode, note = document.createElement('div');
+      note.className = 'mac-hero-note'; note.setAttribute('role','button');
+      note.textContent = '🍎 macOS needs one quick step after download — click to see it';
+      note.addEventListener('click', openMac);
+      if(row && row.parentNode){ row.parentNode.insertBefore(note, row.nextSibling); }
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
