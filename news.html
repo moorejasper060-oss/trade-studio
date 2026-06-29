@@ -158,6 +158,13 @@
     <div class="news-list">
 
       <article class="news-item">
+        <div class="news-date">June 2026 · v1.3.8</div>
+        <span class="news-tag">Fix</span>
+        <h3>Stopping a bot now sticks</h3>
+        <p>Stopping a bot from the home screen could sometimes look like it didn&rsquo;t take — the bot would quietly come back a few seconds later, on both crypto and stocks (paper accounts). Two background processes were restarting it: a poll that kept the open account alive, and a crash-recovery check racing your click. Both now respect an explicit <strong>Stop</strong>, while still bringing a bot back automatically if it genuinely crashes. We also dialled the welcome tour back to showing once per launch instead of on every screen. No change to how your bots trade.</p>
+      </article>
+
+      <article class="news-item">
         <div class="news-date">June 2026 · v1.3.7</div>
         <span class="news-tag">Smoother</span>
         <h3>Buttons respond on the first tap</h3>
