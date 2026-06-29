@@ -157,6 +157,13 @@
   <section style="padding:14px 0 56px">
     <div class="news-list">
 
+      <article class="news-item">
+        <div class="news-date">June 2026 · v1.3.3</div>
+        <span class="news-tag">Fix</span>
+        <h3>Equity charts now draw the full curve</h3>
+        <p>The equity chart now fills in properly on the bots that were showing &ldquo;no data&rdquo; or a flat line. <strong>Crypto bots</strong> were reading their equity history from the wrong place, so the chart stayed empty even though the numbers were there — it now shows the real running curve. <strong>Practice (Simulator) accounts</strong> now record their own equity every scan, so the chart builds up a live line over the first few minutes instead of sitting flat until a trade closes. Real-money accounts are unchanged — they keep using your broker&rsquo;s own equity history. Nothing about how your bots trade has changed.</p>
+      </article>
+
       <article class="news-item feature">
         <div class="news-date">June 2026 · v1.3.2</div>
         <span class="news-tag">Welcome tour</span>
