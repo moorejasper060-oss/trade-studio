@@ -158,6 +158,13 @@
     <div class="news-list">
 
       <article class="news-item">
+        <div class="news-date">June 2026 · v1.3.9</div>
+        <span class="news-tag">Fix</span>
+        <h3>A running bot stays running</h3>
+        <p>On Mac, a bot you&rsquo;d started could quietly pause itself &mdash; usually after the computer slept and woke, or if the bot was automatically restarted in the background. The reason: a stock bot only remembered &ldquo;running vs paused&rdquo; in memory, so any restart reset it to paused. It now <strong>saves that state to disk</strong>, exactly like crypto bots already did, so a running bot comes back running after a sleep, a relaunch, or a crash-recovery restart. A bot you deliberately paused stays paused, and a brand-new bot still waits for you to press play the first time &mdash; we never start trading on our own. No change to how your bots trade.</p>
+      </article>
+
+      <article class="news-item">
         <div class="news-date">June 2026 · v1.3.8</div>
         <span class="news-tag">Fix</span>
         <h3>Stopping a bot now sticks</h3>
