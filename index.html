@@ -35,6 +35,11 @@
   .navlink{font-size:14px;color:var(--mut);transition:color .12s}
   .navlink:hover{color:var(--tx)}
   .navright{display:flex;align-items:center;gap:20px}
+  .userstab{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#c8f6d3;background:rgba(85,182,133,0.14);border:0.5px solid rgba(85,182,133,0.45);padding:6px 13px;border-radius:999px;overflow:hidden;white-space:nowrap}
+  .userstab .js-users{color:#7fe0b0;font-weight:700}
+  .userstab::after{content:"";position:absolute;top:0;left:-60%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(127,224,176,0.38),transparent);transform:skewX(-18deg);animation:usersShine 3.6s ease-in-out infinite;pointer-events:none}
+  @keyframes usersShine{0%{left:-60%}60%{left:130%}100%{left:130%}}
+  @media(prefers-reduced-motion:reduce){.userstab::after{animation:none}}
   .hero{text-align:center;padding:50px 0 30px}
   .hero h1{font-size:46px;font-weight:600;letter-spacing:-0.6px;line-height:1.08}
   .hero p.tag{font-size:19px;color:var(--mut);margin:16px auto 0;max-width:560px}
@@ -154,6 +159,7 @@
       Trade Studio
     </span>
     <span class="navright">
+      <span class="userstab" title="Installs to date, from GitHub release downloads"><span class="js-users">131</span>&nbsp;users</span>
       <a class="navlink" href="news.html">News</a>
       <a class="navdl" href="#get">Download</a>
     </span>
@@ -170,8 +176,8 @@
     <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your computer</div>
 
     <div class="newsbanner">
-      <span class="nb-pill">New · v1.3.12</span>
-      <div class="nb-txt"><b>Trade History &amp; win streak</b> — a dashboard panel showing every closed trade by Today / 7 days / All time, with your win streak and win rate. <span>Works for stock &amp; crypto accounts; fills in automatically.</span></div>
+      <span class="nb-pill">New · v1.3.13</span>
+      <div class="nb-txt"><b>Crypto bots always trade crypto</b> — creating a bot now asks you to choose stocks or crypto up front and checks it against your watchlist, so a crypto bot can't slip through as a stock bot. <span>Plus a live users count in the nav.</span></div>
       <a class="nb-link" href="news.html">Read what's new →</a>
     </div>
 
@@ -414,6 +420,23 @@
           var els = document.querySelectorAll('.js-ver');
           for(var i=0;i<els.length;i++){ els[i].textContent = 'v'+v; }
         }
+      }).catch(function(){});
+  }catch(e){}
+})();
+// Live "users" count = total installer downloads across all GitHub releases.
+// Graceful: keeps the baked-in fallback number on any failure / API rate-limit.
+(function(){
+  try{
+    fetch('https://api.github.com/repos/moorejasper060-oss/trade-studio/releases?per_page=100')
+      .then(function(r){return r.ok ? r.json() : null;})
+      .then(function(rs){
+        if(!rs || !rs.length) return;
+        var n=0;
+        for(var i=0;i<rs.length;i++){ var a=rs[i].assets||[];
+          for(var j=0;j<a.length;j++){ var nm=(a[j].name||'');
+            if(nm.slice(-4)==='.dmg' || nm.slice(-4)==='.exe') n+=(a[j].download_count||0); } }
+        if(n>0){ var els=document.querySelectorAll('.js-users');
+          for(var k=0;k<els.length;k++){ els[k].textContent=n.toLocaleString('en-US'); } }
       }).catch(function(){});
   }catch(e){}
 })();
