@@ -176,8 +176,8 @@
     <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your computer</div>
 
     <div class="newsbanner">
-      <span class="nb-pill">New · v1.5.1</span>
-      <div class="nb-txt"><b>Alerts setup, right on the dashboard</b> — a new 🔔 button with a step-by-step Discord/Telegram guide, a welcome tour that shows only once, and stopped bots keep their last stats. <span>Plus v1.5.0's portfolio protection &amp; weekly reports for Live Plus.</span></div>
+      <span class="nb-pill">New · v1.5.2</span>
+      <div class="nb-txt"><b>Alerts setup, right on the dashboard</b> — a new 🔔 button with a step-by-step Discord/Telegram guide, a one-time welcome tour, stopped bots keep their last stats, plus card &amp; settings polish. <span>And v1.5.0's portfolio protection &amp; weekly reports for Live Plus.</span></div>
       <a class="nb-link" href="news.html">Read what's new →</a>
     </div>
 
@@ -190,9 +190,9 @@
 
   <section class="sec">
     <h2>What is Trade Studio?</h2>
-    <p class="lead">A desktop trading bot for macOS and Windows that runs on <em>your</em> computer and trades <em>your</em> brokerage account — Alpaca, Tradier, Interactive Brokers, a crypto exchange, OANDA, or the built-in Simulator — no servers, no sign-up, no data leaving your machine.</p>
+    <p class="lead">A desktop trading bot for macOS and Windows that runs on <em>your</em> computer and trades <em>your</em> brokerage account — Alpaca, Trading 212, Tradier, Interactive Brokers, a crypto exchange, OANDA, or the built-in Simulator — no servers, no sign-up, no data leaving your machine.</p>
     <div style="max-width:680px;margin:24px auto 0;color:var(--mut);font-size:15px;line-height:1.8">
-      <p>Trade Studio watches the market with a set of classic, transparent statistical signals — Bollinger Bands, RSI, MACD and volume on intraday candles. No AI black box, no hype: just rules you can reason about. When the signals line up, it places trades through your own brokerage account and manages them with stop-losses and take-profits.</p>
+      <p>Trade Studio watches the market with a set of classic, transparent statistical signals — Bollinger Bands, RSI, MACD, volume and breakout levels on intraday and daily candles. Three strategies to pick from: Classic, VWAP Reclaim and the slower daily Swing Trend. No AI black box, no hype: just rules you can reason about. When the signals line up, it places trades through your own brokerage account and manages them with stop-losses and take-profits.</p>
       <p style="margin-top:14px">It's built to keep you in control. The bot boots <strong style="color:var(--tx)">paused</strong>, you can practice risk-free in paper mode for as long as you like, and your API keys are stored only on your machine — Trade Studio has no server and never sees your credentials. It's a tool, not a money machine.</p>
     </div>
   </section>
@@ -214,7 +214,7 @@
       <div class="feat"><div class="ic">🔒</div><h3>Local-first</h3><p>No servers, no account, no cloud. Your API keys are stored only on your computer.</p></div>
       <div class="feat"><div class="ic">⚗️</div><h3>Paper &amp; live</h3><p>Practice risk-free with paper trading, or connect your real broker account when you're ready.</p></div>
       <div class="feat"><div class="ic">⚡</div><h3>One-click setup</h3><p>Install, paste your keys, press resume. A guided wizard handles the rest.</p></div>
-      <div class="feat"><div class="ic">📊</div><h3>Statistical, not hype</h3><p>Classic indicators on intraday candles — transparent rules, no AI black box.</p></div>
+      <div class="feat"><div class="ic">📊</div><h3>Statistical, not hype</h3><p>Classic indicators on intraday &amp; daily candles — transparent rules, no AI black box.</p></div>
       <div class="feat"><div class="ic">🖥️</div><h3>Lives in your tray</h3><p>Runs quietly in the background. Open, pause, or quit from the system tray.</p></div>
       <div class="feat"><div class="ic">📈</div><h3>Your own dashboard</h3><p>Live equity, positions, win-rate and controls — all in a clean local dashboard.</p></div>
     </div>
@@ -258,6 +258,17 @@
         <span class="bk-link">tradier.com ↗</span>
       </a>
 
+      <a class="broker" href="https://www.trading212.com" target="_blank" rel="noopener">
+        <div class="bk-top">
+          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#00A7E1"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">212</text></svg></span>
+          <span class="bk-badge ok">Available</span>
+        </div>
+        <h3>Trading 212</h3>
+        <p>US stocks &amp; ETFs for EU/UK users. Free practice (demo) mode for paper trading.</p>
+        <div class="bk-tags"><span>stocks</span><span>etfs</span></div>
+        <span class="bk-link">trading212.com ↗</span>
+      </a>
+
       <a class="broker" href="https://docs.ccxt.com" target="_blank" rel="noopener">
         <div class="bk-top">
           <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#F7931A"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">₿</text></svg></span>
@@ -292,7 +303,7 @@
       </a>
 
     </div>
-    <div class="micro" style="margin-top:16px">All six are wired up and ready today — pick the one whose account you already have, or start instantly on the Simulator. Interactive Brokers connects through the free IB Gateway you run locally. Logos are placeholders, not official brand marks.</div>
+    <div class="micro" style="margin-top:16px">All seven are wired up and ready today — pick the one whose account you already have, or start instantly on the Simulator. Interactive Brokers connects through the free IB Gateway you run locally. Logos are placeholders, not official brand marks.</div>
   </section>
 
   <section class="sec">
@@ -368,7 +379,7 @@
       <details><summary>Is it free?</summary><p>Paper trading is free, forever — unlimited practice accounts, no card required. Live trading with real money is a paid subscription (Live Solo €9/mo, Live Plus €19/mo). You'll also need an account at one of the supported brokers — or none at all if you stick to the built-in Simulator.</p></details>
       <details><summary>Do my API keys leave my computer?</summary><p>No. Your keys are saved only on your own machine (in your local app folder). There's no Trade Studio server and nothing is uploaded anywhere.</p></details>
       <details><summary>Will it make me money?</summary><p>There are no guarantees. Trade Studio is a tool that runs a rules-based strategy — it is not financial advice and not a money machine. Trading carries real risk of loss. Start in paper mode.</p></details>
-      <details><summary>What do I need to run it?</summary><p>A Mac (macOS) or a Windows 10/11 PC. To trade a real broker you'll add a free account at one of the six supported backends (Alpaca, Tradier, Interactive Brokers, a crypto exchange, OANDA) — or use the built-in Simulator with no account at all. No Python, no setup beyond pasting your keys.</p></details>
+      <details><summary>What do I need to run it?</summary><p>A Mac (macOS) or a Windows 10/11 PC. To trade a real broker you'll add a free account at one of the seven supported backends (Alpaca, Trading 212, Tradier, Interactive Brokers, a crypto exchange, OANDA) — or use the built-in Simulator with no account at all. No Python, no setup beyond pasting your keys.</p></details>
       <details><summary>Will I always get the newest version?</summary><p>Yes — the download button always serves the latest release, so you never grab an old build. After installing, Trade Studio also auto-updates itself from inside the app.</p></details>
       <details><summary>macOS says the app “can't be opened” or “is damaged”?</summary><p>The Mac build isn't notarized with an Apple Developer&nbsp;ID yet, so macOS quarantines it on download — sometimes with a “can't be opened,” sometimes a “damaged” message. To run it: drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder, open <b>Terminal</b>, and run this once:</p><p><code style="display:block;padding:10px 12px;background:#05070d;border-radius:8px;color:#7fe0b0;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;overflow-x:auto;white-space:pre;user-select:all">xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code></p><p>Then open Trade&nbsp;Studio normally. This just clears the “downloaded from the internet” flag macOS adds to unsigned apps — safe because you got it from this site. A signed build is on the way. <b>On Windows:</b> if SmartScreen appears, click <b>More info → Run anyway</b>.</p></details>
       <details><summary>Is my money at risk in live mode?</summary><p>Yes. Live mode places real orders with your real funds and can lose money. It's gated behind an explicit confirmation. Practice in paper mode first.</p></details>
@@ -383,7 +394,7 @@
       <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:0">⬇&nbsp; Download for macOS</a>
       <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
     </div>
-    <div class="micro" style="margin-top:14px">Free · macOS &amp; Windows · always the latest release (<span class="js-ver">v1.0.9</span>)</div>
+    <div class="micro" style="margin-top:14px">Free · macOS &amp; Windows · always the latest release (<span class="js-ver">v1.5.2</span>)</div>
     <div class="micro" style="margin-top:8px">First launch is unsigned. On <b>Windows</b>: if SmartScreen appears, click <b>More info → Run anyway</b>. On <b>macOS</b>, see the one-time step below 👇 Auto-updates after that.</div>
     <div class="cmdbox">
       <b>🍎 First launch on macOS</b><br>
@@ -401,9 +412,9 @@
 
 <footer>
   <div class="wrap">
-    <p class="disc">Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss — including, and especially, in live mode. You are solely responsible for your own trades and for securing your own account. Not affiliated with Alpaca, Tradier, Interactive Brokers, OANDA, or any other broker or exchange.</p>
+    <p class="disc">Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss — including, and especially, in live mode. You are solely responsible for your own trades and for securing your own account. Not affiliated with Alpaca, Trading 212, Tradier, Interactive Brokers, OANDA, or any other broker or exchange.</p>
     <p class="by">Built by <b>Jasper Moore</b></p>
-    <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.0.9</span> · macOS &amp; Windows</p>
+    <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.5.2</span> · macOS &amp; Windows</p>
     <p style="margin-top:12px;font-size:12px;color:#6b7488">
       <a href="news.html" style="color:#3fb6a8;text-decoration:none">News</a> ·
       <a href="impressum.html" style="color:#3fb6a8;text-decoration:none">Impressum</a> ·
