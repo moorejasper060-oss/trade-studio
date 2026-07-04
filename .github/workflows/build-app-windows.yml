@@ -1,0 +1,54 @@
+# Builds the Trade Studio Windows installer from the PRIVATE app repo.
+#
+# Why here: this public repo gets free unlimited Actions minutes, so releases
+# keep working when the account's private-repo minutes are exhausted (the
+# private repo's own build-windows.yml is the normal path). Checks out
+# moorejasper060-oss/trade-studio-app at the requested ref via the
+# APP_REPO_TOKEN secret (repo-scoped token; manual dispatch only).
+name: Build app Windows installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "trade-studio-app ref to build (tag/branch/sha)"
+        required: true
+        default: "master"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: moorejasper060-oss/trade-studio-app
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.APP_REPO_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build one-file .exe
+        run: pyinstaller trade_studio.spec --noconfirm --clean
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Build installer (ISCC)
+        run: '& "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" trade_studio.iss'
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TradeStudio-Windows
+          path: installer_output/TradeStudio-Setup.exe
