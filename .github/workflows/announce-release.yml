@@ -1,0 +1,39 @@
+# Posts every published release to the Discord #app-updates channel via a
+# webhook (secret DISCORD_RELEASE_WEBHOOK). workflow_dispatch takes a tag for
+# manual/backfill announcements.
+name: Announce release on Discord
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to announce (e.g. v1.6.1)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to Discord
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          BODY=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json body,name -q '.body' | head -c 1500)
+          NAME=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json name -q '.name')
+          jq -n --arg tag "$TAG" --arg name "$NAME" --arg body "$BODY" '{
+            embeds: [{
+              title: ("📦 " + ($name // $tag) + " is out"),
+              description: ($body + "\n\n⬇️ [Download](https://tradestudio.digga.ai/#get) · [What'\''s new](https://tradestudio.digga.ai/news.html)\n\nAlready installed? The app updates itself — or Settings → Check for updates."),
+              color: 5617285,
+              footer: { text: "Trade Studio" }
+            }]
+          }' | curl -sf -X POST -H "Content-Type: application/json" -d @- "$WEBHOOK"
+          echo "announced $TAG"
