@@ -161,6 +161,7 @@
     <span class="navright">
       <span class="userstab" title="Installs to date, from GitHub release downloads"><span class="js-users">131</span>&nbsp;users</span>
       <a class="navlink" href="#mobile">Mobile</a>
+      <a class="navlink" href="#support">Support</a>
       <a class="navlink" href="news.html">News</a>
       <a class="navdl" href="#get">Download</a>
     </span>
@@ -412,6 +413,49 @@
       <details><summary>How do I stop it?</summary><p>Pause it from the dashboard at any time, or quit entirely from the system-tray icon.</p></details>
     </div>
   </section>
+
+  <section class="sec" id="support">
+    <h2>Something broken? Tell us.</h2>
+    <p class="lead">Every report gets read. The more detail you give (what you did, what happened, your app version from Settings), the faster it gets fixed.</p>
+    <div class="feats" style="margin-top:34px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="feat">
+        <h3 style="text-align:center">📮 Send a report</h3>
+        <p style="margin-top:8px;text-align:center">Goes straight to the developer — no account, no email app needed. In the app, <b>Settings → Support</b> pre-fills your version info.</p>
+        <form id="sup-form" style="margin-top:16px;display:flex;flex-direction:column;gap:10px" onsubmit="return supSend(event)">
+          <textarea id="sup-msg" required minlength="10" rows="5" placeholder="What happened? What did you expect instead? (App version from Settings helps a lot.)" style="resize:vertical;background:#05070d;border:0.5px solid var(--bd2);border-radius:10px;padding:11px 13px;color:var(--tx);font:inherit;font-size:14px"></textarea>
+          <input id="sup-contact" type="email" placeholder="Your email — optional, only if you'd like a reply" style="background:#05070d;border:0.5px solid var(--bd2);border-radius:10px;padding:11px 13px;color:var(--tx);font:inherit;font-size:14px">
+          <input id="sup-hp" type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <button type="submit" class="dl" style="margin-top:4px;padding:12px 24px;font-size:15px;border:0;cursor:pointer;justify-content:center" id="sup-btn">Send report</button>
+          <div class="micro" id="sup-status" style="margin-top:0;text-align:center"></div>
+        </form>
+      </div>
+      <div class="feat" style="text-align:center">
+        <h3>🐙 GitHub issues</h3>
+        <p style="margin-top:8px">Prefer a tracker? Open an issue and follow the fix from report to release — a free GitHub account is all you need.</p>
+        <a class="dl" style="margin-top:18px;padding:12px 24px;font-size:15px;background:rgba(255,255,255,0.08);color:var(--tx)" href="https://github.com/moorejasper060-oss/trade-studio/issues/new" target="_blank" rel="noopener">Open an issue ↗</a>
+      </div>
+    </div>
+  </section>
+  <script>
+  async function supSend(e){
+    e.preventDefault();
+    var btn=document.getElementById('sup-btn'), st=document.getElementById('sup-status');
+    btn.disabled=true; btn.textContent='Sending…'; st.textContent='';
+    try{
+      var r=await fetch('https://trade-studio-support.tradestudio.workers.dev/report',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({message:document.getElementById('sup-msg').value,
+                             contact:document.getElementById('sup-contact').value,
+                             website:document.getElementById('sup-hp').value,
+                             diag:'via website · '+navigator.userAgent})});
+      var d=await r.json();
+      if(d&&d.ok){ btn.textContent='Sent ✓ — thank you!'; document.getElementById('sup-msg').value=''; }
+      else{ btn.disabled=false; btn.textContent='Send report';
+            st.textContent=(d&&d.error==='rate_limited')?'Too many reports from this connection — try again later.':'Could not send — please try the GitHub option.'; }
+    }catch(_){ btn.disabled=false; btn.textContent='Send report'; st.textContent='Could not send — please try the GitHub option.'; }
+    return false;
+  }
+  </script>
 
   <section class="sec cta" id="get">
     <h2>Get Trade Studio</h2>
