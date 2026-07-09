@@ -9,8 +9,26 @@ installers, and two workflows.
 
 The living project state doc shared between coding agents is
 `~/.claude/projects/-Users-jaspermoore/memory/trade-studio-state.md` — read it at session
-start, update it in place at session end. The private app repo's own `AGENTS.md` has the full
-standing rules; they apply here too.
+start, update it in place at session end.
+
+## Standing rules from Jasper
+
+<!-- STANDING-RULES:START -->
+- **Always commit AND push code changes automatically** — don't wait to be asked. Solo
+  personal repos: commit straight to the default branch (no PR) unless told otherwise.
+  (Exception: `daytrade-agent` opens DRAFT PRs with tests green first — see its `CLAUDE.md`.)
+- ⛔ **No user-facing release until Jasper explicitly says he's happy** — don't build, sign,
+  publish, or push anything that reaches end users or the auto-updater. Committing and pushing
+  source is always fine and expected. Default to "not yet."
+- **UI/visual changes: preview before ship.** Show a localhost preview (or hot-swap into the
+  running app) with 2–3 real mockups and let Jasper pick/iterate BEFORE building. He reacts to
+  pixels, not descriptions — always screenshot-verify your OWN render first.
+- **Shared project memory is the source of truth.** The state docs under
+  `~/.claude/projects/-Users-jaspermoore/memory/` are read AND written by BOTH Claude Code and
+  Codex — read the relevant one at session start, update it in place at session end (absolute
+  dates), and never create a rival state file. Treat unexpected edits there as the other
+  agent's session notes, not corruption.
+<!-- STANDING-RULES:END -->
 
 ## How this repo works
 
