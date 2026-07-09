@@ -1,3 +1,10 @@
+<!-- KICKOFF -->
+> **▶ New session?** Skim `~/.codex/CODEX-HANDOFF.md` for full cross-project context and how Jasper
+> works (the standing rules), then follow the rest of this file. Shared project memory lives in
+> `~/.claude/projects/-Users-jaspermoore/memory/` (index `MEMORY.md`) — read the relevant state doc at
+> session start and update it in place at session end (absolute dates). Commit **and** push automatically.
+<!-- /KICKOFF -->
+
 # Trade Studio (public site + releases) — agent instructions
 
 This is the **public website + release-distribution repo** for Trade Studio. The app source
