@@ -12,6 +12,21 @@ lives in the private `moorejasper060-oss/trade-studio-app` repo — no bot logic
 static HTML site (GitHub Pages, `CNAME` = tradestudio.digga.ai), GitHub Releases hosting the
 installers, and two workflows.
 
+## Jasper's local Codex project is the whole Trade Studio product
+
+On Jasper's Mac, this folder is also the **umbrella entry point** for all Trade Studio work in
+Codex. Two local-only links sit at the repo root (excluded through `.git/info/exclude`, so the
+private source is never added to this public repository):
+
+- `desktop-app` -> `/Users/jaspermoore/trade-studio-app`
+- `ios-app` -> `/Users/jaspermoore/trade-studio-mobile`
+
+Treat an unqualified "Trade Studio" request as potentially spanning all three components:
+this site/releases repo, the desktop app, and the iOS app/relay. Before changing a linked
+component, enter its real repository and read its own `AGENTS.md`; each component keeps its own
+Git history, branch, tests, and release gate. Use `git -C <real-repo>` for status/commit/push so
+changes never land in the wrong repository.
+
 ## Maintainer-local note (Jasper's machines)
 
 The living project state doc shared between coding agents is
