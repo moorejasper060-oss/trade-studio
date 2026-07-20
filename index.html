@@ -1,615 +1,224 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trade Studio — your own local trading bot</title>
-<meta name="description" content="Run your own automated trading bot on your own computer. Your broker, your keys, your machine — stocks, crypto and forex. Paper or live. Free download for macOS and Windows.">
-<link rel="icon" type="image/png" href="assets/icon.png">
-<link rel="apple-touch-icon" href="assets/icon.png">
-<meta property="og:title" content="Trade Studio — your own local trading bot">
-<meta property="og:description" content="Run your own automated trading bot on your own computer. Your broker, your keys, your machine.">
-<meta property="og:image" content="https://tradestudio.digga.ai/assets/og-logo.png">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tradestudio.digga.ai/assets/og-logo.png">
-<style>
-  :root{
-    --bg:#080a12; --panel:rgba(255,255,255,0.035); --bd:rgba(255,255,255,0.09);
-    --bd2:rgba(255,255,255,0.16); --tx:#eef2fb; --mut:#aab3c7; --faint:#6b7488;
-    --teal:#55b685; --purple:#3fb6a8;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:radial-gradient(1100px 520px at 70% -8%, rgba(85,182,133,0.16), transparent 60%),
-       radial-gradient(900px 480px at 10% 4%, rgba(63,182,168,0.12), transparent 55%), var(--bg);
-       color:var(--tx); font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-       line-height:1.6; -webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
-  .sec{padding:56px 0;border-top:0.5px solid var(--bd)}
-  .sec h2{font-size:28px;font-weight:600;letter-spacing:-0.3px;text-align:center}
-  .sec .lead{font-size:16px;color:var(--mut);text-align:center;max-width:600px;margin:12px auto 0}
-  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:17px}
-  .navdl{background:var(--teal);color:#06281f;font-weight:600;font-size:14px;padding:9px 18px;border-radius:10px}
-  .navlink{font-size:14px;color:var(--mut);transition:color .12s}
-  .navlink:hover{color:var(--tx)}
-  .navright{display:flex;align-items:center;gap:20px}
-  .userstab{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#c8f6d3;background:rgba(85,182,133,0.14);border:0.5px solid rgba(85,182,133,0.45);padding:6px 13px;border-radius:999px;overflow:hidden;white-space:nowrap}
-  .userstab .js-users{color:#7fe0b0;font-weight:700}
-  .userstab::after{content:"";position:absolute;top:0;left:-60%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(127,224,176,0.38),transparent);transform:skewX(-18deg);animation:usersShine 3.6s ease-in-out infinite;pointer-events:none}
-  @keyframes usersShine{0%{left:-60%}60%{left:130%}100%{left:130%}}
-  @media(prefers-reduced-motion:reduce){.userstab::after{animation:none}}
-  .hero{text-align:center;padding:50px 0 30px}
-  .hero h1{font-size:46px;font-weight:600;letter-spacing:-0.6px;line-height:1.08}
-  .hero p.tag{font-size:19px;color:var(--mut);margin:16px auto 0;max-width:560px}
-  .dl{display:inline-flex;align-items:center;gap:9px;background:var(--teal);color:#06281f;font-weight:600;
-      font-size:16px;padding:15px 30px;border-radius:13px;margin-top:26px;transition:transform .12s, box-shadow .12s}
-  .dl:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(63,182,168,0.25)}
-  .micro{font-size:13px;color:var(--faint);margin-top:13px}
-  .cmdbox{margin:18px auto 0;max-width:600px;text-align:left;background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:16px 18px;font-size:13.5px;color:var(--mut);line-height:1.6}
-  .cmdbox b{color:var(--tx)}
-  .cmdbox code{display:block;margin:10px 0;padding:11px 13px;background:#05070d;border:0.5px solid var(--bd);border-radius:9px;color:#7fe0b0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;overflow-x:auto;white-space:pre;user-select:all;-webkit-user-select:all}
-  .newsbanner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;max-width:680px;margin:30px auto 0;background:linear-gradient(120deg, rgba(85,182,133,0.13), rgba(63,182,168,0.05));border:0.5px solid var(--bd);border-radius:14px;padding:14px 20px;text-align:left}
-  .newsbanner .nb-pill{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#06281f;background:var(--teal);border-radius:999px;padding:4px 11px;white-space:nowrap}
-  .newsbanner .nb-txt{flex:1;min-width:230px;font-size:14px;color:var(--tx)}
-  .newsbanner .nb-txt span{color:var(--mut)}
-  .newsbanner a.nb-link{color:#7fe0b0;font-weight:600;font-size:14px;white-space:nowrap}
-  .soonbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(85,182,133,0.14);border:0.5px solid rgba(85,182,133,0.4);color:#c8f6d3;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;letter-spacing:.3px}
-  .dl.soon{background:rgba(255,255,255,0.05);color:var(--mut);border:0.5px solid var(--bd2);box-shadow:none;cursor:default}
-  .dl.soon:hover{transform:none;box-shadow:none}
-  .navdl.soon{background:rgba(255,255,255,0.06);color:var(--mut)}
-  .preview{margin:38px auto 0;max-width:880px;background:#0b1226;border:0.5px solid var(--bd);
-           border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.45)}
-  .pv-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:0.5px solid var(--bd);background:#0d1430}
-  .pv-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
-  .pv-bar .nm{font-size:12px;font-weight:600;color:#9aa4ba;letter-spacing:.7px;text-transform:uppercase}
-  .pv-bar .st{font-size:12px;color:var(--faint)}
-  .pv-body{padding:18px}
-  .pv-card{background:linear-gradient(120deg, rgba(85,182,133,0.14), rgba(63,182,168,0.06));border:0.5px solid var(--bd);border-radius:12px;padding:15px 17px}
-  .pv-card .eq{font-size:26px;font-weight:600}
-  .pv-card .sub{font-size:13px;color:var(--mut);margin-top:2px}
-  .pv-label{font-size:11px;color:var(--faint);letter-spacing:.6px;text-transform:uppercase;margin:18px 0 8px}
-  .pv-chart{background:rgba(255,255,255,0.02);border:0.5px solid var(--bd);border-radius:12px;padding:10px}
-  .pv-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px}
-  .pv-stat{background:rgba(255,255,255,0.02);border:0.5px solid var(--bd);border-radius:12px;padding:13px 15px}
-  .pv-stat .lbl{font-size:10px;color:var(--faint);letter-spacing:.5px;text-transform:uppercase}
-  .pv-stat .big{font-size:22px;font-weight:600;margin-top:5px;color:var(--tx)}
-  .pv-stat .big .pct{font-size:13px;color:var(--mut)}
-  .pv-stat .up{font-size:12px;color:#55c08a;margin-top:3px}
-  .pv-stat .sub2{font-size:11px;color:var(--mut);margin-top:3px}
-  .pv-sig{margin-top:14px;display:flex;flex-direction:column}
-  .pv-sigrow{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:0.5px solid var(--bd)}
-  .pv-sigrow .sy{font-size:13px;font-weight:700;color:var(--tx);width:48px}
-  .pv-sigrow .meta{flex:1;font-size:11.5px;color:var(--mut)}
-  .pv-sigrow .tag{font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 9px;border-radius:6px;white-space:nowrap}
-  .pv-sigrow .tag.buy{background:rgba(85,182,133,0.16);color:#7fe0b0}
-  .pv-sigrow .tag.hold{background:rgba(255,255,255,0.06);color:var(--mut)}
-  .pv-sigrow .tag.cash{background:rgba(255,255,255,0.04);color:var(--faint)}
-  .pv-ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
-  .chip{background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:9px;padding:9px 0;text-align:center;font-size:12px;color:#cdd4e2}
-  .chip.go{background:rgba(63,182,168,0.14);border-color:rgba(63,182,168,0.4);color:var(--teal);font-weight:600}
-  .watch{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--teal);font-weight:600;margin-top:16px}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
-  .step{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px}
-  .step .n{width:28px;height:28px;border-radius:8px;background:rgba(63,182,168,0.16);color:var(--teal);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
-  .step h3{font-size:15px;font-weight:600;margin:11px 0 4px}
-  .step p{font-size:13px;color:var(--mut)}
-  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
-  .feat{background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:20px}
-  .feat .ic{font-size:22px}
-  .feat h3{font-size:16px;font-weight:600;margin:11px 0 5px}
-  .feat p{font-size:14px;color:var(--mut)}
-  .brokers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
-  .broker{display:flex;flex-direction:column;gap:9px;background:var(--panel);border:0.5px solid var(--bd);border-radius:14px;padding:18px;color:inherit;transition:transform .12s, border-color .12s}
-  a.broker:hover{transform:translateY(-2px);border-color:var(--bd2)}
-  .bk-top{display:flex;align-items:center;justify-content:space-between}
-  .bk-logo{display:inline-flex}
-  .bk-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
-  .bk-badge.ok{background:rgba(63,182,168,0.16);color:var(--teal)}
-  .bk-badge.soon{background:rgba(85,182,133,0.16);color:#c8f6d3}
-  .broker h3{font-size:16px;font-weight:600;margin-top:2px}
-  .broker p{font-size:13.5px;color:var(--mut);flex:1}
-  .bk-tags{display:flex;flex-wrap:wrap;gap:6px}
-  .bk-tags span{font-size:11px;color:var(--faint);background:rgba(255,255,255,0.04);border:0.5px solid var(--bd);border-radius:6px;padding:2px 8px}
-  .bk-link{font-size:12.5px;color:var(--teal);font-weight:600}
-  .broker.builtin .bk-link{color:var(--faint)}
-  .cmp-title{font-size:16px;font-weight:600;text-align:center;margin-top:44px}
-  .cmp-wrap{overflow-x:auto;margin-top:18px;border:0.5px solid var(--bd);border-radius:14px}
-  .cmp{width:100%;min-width:580px;border-collapse:collapse;font-size:14px}
-  .cmp th,.cmp td{padding:13px 16px;text-align:center;border-bottom:0.5px solid var(--bd)}
-  .cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
-  .cmp thead th{font-size:15px;font-weight:600;color:var(--tx)}
-  .cmp thead th small{display:block;font-size:12px;font-weight:500;color:var(--faint);margin-top:3px}
-  .cmp tbody th{text-align:left;font-weight:500;color:var(--mut);font-size:13.5px}
-  .cmp td{color:var(--tx)}
-  .cmp .yes{color:var(--teal);font-weight:700}
-  .cmp .no{color:var(--faint)}
-  .cmp .hl{background:rgba(85,182,133,0.07)}
-  .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
-  .mode{border-radius:14px;padding:22px;border:0.5px solid var(--bd)}
-  .mode.paper{background:rgba(63,182,168,0.07);border-color:rgba(63,182,168,0.3)}
-  .mode.live{background:rgba(226,75,74,0.06);border-color:rgba(226,75,74,0.3)}
-  .mode .badge{font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px}
-  .mode.paper .badge{background:rgba(63,182,168,0.18);color:var(--teal)}
-  .mode.live .badge{background:rgba(226,75,74,0.18);color:#ff8c8c}
-  .mode h3{font-size:18px;font-weight:600;margin:12px 0 6px}
-  .mode p{font-size:14px;color:var(--mut)}
-  .faq{max-width:760px;margin:30px auto 0;display:flex;flex-direction:column;gap:10px}
-  .faq details{background:var(--panel);border:0.5px solid var(--bd);border-radius:12px;padding:4px 18px}
-  .faq summary{cursor:pointer;padding:14px 0;font-weight:500;font-size:15px;list-style:none}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";float:right;color:var(--mut)}
-  .faq details[open] summary::after{content:"–"}
-  .faq p{font-size:14px;color:var(--mut);padding:0 0 16px}
-  .cta{text-align:center}
-  footer{border-top:0.5px solid var(--bd);padding:34px 0 44px;text-align:center}
-  footer .disc{font-size:12px;color:var(--faint);max-width:640px;margin:0 auto;line-height:1.7}
-  footer .by{font-size:14px;color:var(--mut);margin-top:18px}
-  footer .by b{color:var(--tx);font-weight:600}
-  footer .cr{font-size:12px;color:#4d5468;margin-top:8px}
-  @media(max-width:760px){.hero h1{font-size:34px}.feats,.steps,.modes,.brokers,.pv-ctrls{grid-template-columns:1fr}.pv-ctrls{grid-template-columns:repeat(2,1fr)}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050807">
+  <meta name="description" content="Run your own automated trading bot locally on macOS or Windows. Paper trade for free, connect seven broker backends, and keep your keys on your machine.">
+  <meta property="og:title" content="Trade Studio — Local-first automated trading">
+  <meta property="og:description" content="Your broker, your keys, your machine. Transparent strategies for stocks, crypto and forex.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradestudio.digga.ai/">
+  <meta property="og:image" content="https://tradestudio.digga.ai/assets/og-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://tradestudio.digga.ai/">
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="preload" href="assets/night-orbit-hero.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="site.css?v=20260720">
+  <title>Trade Studio — Local-first automated trading</title>
 </head>
-<body>
-<div class="wrap">
-  <nav>
-    <span class="brand">
-      <img src="assets/icon.png" width="30" height="30" alt="Trade Studio" style="display:block">
-      Trade Studio
-    </span>
-    <span class="navright">
-      <span class="userstab" title="Installs to date, from GitHub release downloads"><span class="js-users">131</span>&nbsp;users</span>
-      <a class="navlink" href="#mobile">Mobile</a>
-      <a class="navlink" style="color:#8f9dfa" href="https://discord.gg/vnxaBFRcMN" target="_blank" rel="noopener">Discord</a>
-      <a class="navlink" href="#support">Support</a>
-      <a class="navlink" href="news.html">News</a>
-      <a class="navdl" href="#get">Download</a>
-    </span>
-  </nav>
+<body data-concept="nightorbit" class="nightorbit site-ready">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
 
-  <section class="hero">
-    <img src="assets/icon.png" width="88" height="88" alt="Trade Studio" style="display:block;margin:0 auto;filter:drop-shadow(0 10px 26px rgba(63,182,168,.34))">
-    <h1 style="margin-top:18px">Run your own trading bot.<br>Locally.</h1>
-    <p class="tag">Your broker, your keys, your machine. Practice in paper mode or trade live — Trade Studio runs entirely on your own computer.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
-      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:0">⬇&nbsp; Download for macOS</a>
-      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
-    </div>
-    <div class="micro">Free paper trading · live via subscription · always the latest version · your keys never leave your computer</div>
-
-    <div class="newsbanner">
-      <span class="nb-pill">New · v1.6.4</span>
-      <div class="nb-txt"><b>Dashboard numbers you can trust</b> — "Today's P&amp;L" now always matches the equity chart. <span>Plus one-code iPhone pairing and launch pricing: €9/€19 before Aug 4.</span></div>
-      <a class="nb-link" href="news.html">Read what's new →</a>
-    </div>
-
-    <div class="preview" aria-label="The Trade Studio dashboard">
-      <img src="assets/dashboard.png" width="1760" height="1271" loading="lazy"
-           alt="The Trade Studio dashboard — live account equity, profit and loss, signals and open positions"
-           style="display:block;width:100%;height:auto">
-    </div>
-  </section>
-
-  <section class="sec">
-    <h2>What is Trade Studio?</h2>
-    <p class="lead">A desktop trading bot for macOS and Windows that runs on <em>your</em> computer and trades <em>your</em> brokerage account — Alpaca, Trading 212, Tradier, Interactive Brokers, a crypto exchange, OANDA, or the built-in Simulator — no servers, no sign-up, no data leaving your machine.</p>
-    <div style="max-width:680px;margin:24px auto 0;color:var(--mut);font-size:15px;line-height:1.8">
-      <p>Trade Studio watches the market with a set of classic, transparent statistical signals — Bollinger Bands, RSI, MACD, volume and breakout levels on intraday and daily candles. Three strategies to pick from: Classic, VWAP Reclaim and the slower daily Swing Trend. No AI black box, no hype: just rules you can reason about. When the signals line up, it places trades through your own brokerage account and manages them with stop-losses and take-profits.</p>
-      <p style="margin-top:14px">It's built to keep you in control. The bot boots <strong style="color:var(--tx)">paused</strong>, you can practice risk-free in paper mode for as long as you like, and your API keys are stored only on your machine — Trade Studio has no server and never sees your credentials. It's a tool, not a money machine.</p>
-    </div>
-  </section>
-
-  <section class="sec" id="how">
-    <h2>How it works</h2>
-    <p class="lead">From download to running bot in a few minutes.</p>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Download &amp; install</h3><p>One-click installer, no admin needed. Adds a desktop shortcut.</p></div>
-      <div class="step"><div class="n">2</div><h3>Pick your broker</h3><p>Choose from six backends — or start with no account at all on the Simulator. Paper keys are free.</p></div>
-      <div class="step"><div class="n">3</div><h3>Paste &amp; test</h3><p>Drop your keys into the setup wizard — it verifies them read-only before saving.</p></div>
-      <div class="step"><div class="n">4</div><h3>Press Resume</h3><p>The bot runs in your system tray and trades for you. Pause anytime.</p></div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <h2>Everything's on your machine</h2>
-    <div class="feats">
-      <div class="feat"><div class="ic">🔒</div><h3>Local-first</h3><p>No servers, no account, no cloud. Your API keys are stored only on your computer.</p></div>
-      <div class="feat"><div class="ic">⚗️</div><h3>Paper &amp; live</h3><p>Practice risk-free with paper trading, or connect your real broker account when you're ready.</p></div>
-      <div class="feat"><div class="ic">⚡</div><h3>One-click setup</h3><p>Install, paste your keys, press resume. A guided wizard handles the rest.</p></div>
-      <div class="feat"><div class="ic">📊</div><h3>Statistical, not hype</h3><p>Classic indicators on intraday &amp; daily candles — transparent rules, no AI black box.</p></div>
-      <div class="feat"><div class="ic">🖥️</div><h3>Lives in your tray</h3><p>Runs quietly in the background. Open, pause, or quit from the system tray.</p></div>
-      <div class="feat"><div class="ic">📈</div><h3>Your own dashboard</h3><p>Live equity, positions, win-rate and controls — all in a clean local dashboard.</p></div>
-    </div>
-  </section>
-
-  <section class="sec" id="mobile">
-    <div style="text-align:center">
-      <span class="nb-pill" style="display:inline-block;margin-bottom:14px">Coming soon · iPhone</span>
-      <h2>Trade Studio Mobile</h2>
-      <p class="lead">Your bots in your pocket. A native iPhone app with a built-in paper-trading sim, plus secure remote view &amp; control of the bots running on your computer — from anywhere.</p>
-    </div>
-    <div style="display:flex;gap:44px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:38px">
-      <div style="display:flex;gap:18px;flex-shrink:0">
-        <img src="assets/mobile-sim.png" alt="Trade Studio Mobile — the paper-trading sim" width="190" loading="lazy"
-             style="width:190px;height:auto;border-radius:28px;border:1px solid var(--bd2);box-shadow:0 26px 64px rgba(0,0,0,.55)">
-        <img src="assets/mobile-remote.png" alt="Trade Studio Mobile — remote control of your bots" width="190" loading="lazy"
-             style="width:190px;height:auto;border-radius:28px;border:1px solid var(--bd2);box-shadow:0 26px 64px rgba(0,0,0,.55);margin-top:30px">
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-brand" href="#top"><img src="assets/icon.png" width="34" height="34" alt=""><b>Trade Studio</b></a>
+      <div class="nav-links">
+        <a href="#product">Product</a><a href="#strategies">Strategies</a><a href="#mobile">Mobile</a><a href="#brokers">Brokers</a><a href="#pricing">Pricing</a><a href="#support">Support</a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:14px;max-width:430px">
-        <div class="feat"><div class="ic">📲</div><h3>Practice on the go</h3><p>A phone-local paper sim that runs the exact same strategy as your desktop bots — real crypto prices, no account, no risk.</p></div>
-        <div class="feat"><div class="ic">🎛️</div><h3>Control from anywhere</h3><p>See your live fleet and pause, resume or flatten any bot remotely — while your computer is on.</p></div>
-        <div class="feat"><div class="ic">🔐</div><h3>End-to-end encrypted</h3><p>Pairing needs your license key plus a one-time code, and the relay only ever sees ciphertext — your keys never leave your devices.</p></div>
-      </div>
-    </div>
-    <p class="micro" style="text-align:center;margin-top:30px">Built with Swift · free paper sim · remote control included with any subscription · App Store soon</p>
-  </section>
+      <a class="nav-get" href="#download">Get the app <span>↘</span></a>
+    </nav>
 
-  <section class="sec" id="brokers">
-    <h2>Works with your broker</h2>
-    <p class="lead">Six backends across stocks, crypto and forex — bring the broker you already use, or start in seconds on the built-in Simulator. Paper trading is free on every broker; only going live needs a subscription.</p>
-    <div class="brokers">
-
-      <div class="broker builtin">
-        <div class="bk-top">
-          <span class="bk-logo"><img src="assets/icon.png" width="34" height="34" alt="Simulator" style="display:block;border-radius:8px"></span>
-          <span class="bk-badge ok">Available</span>
+    <main id="main">
+      <section class="hero" id="top" data-section="top">
+        <div class="hero-art art-main"><picture><source srcset="assets/night-orbit-hero.webp" type="image/webp"><img data-art="hero" src="assets/night-orbit-hero.jpg" width="1535" height="1024" fetchpriority="high" decoding="async" alt="Dark glass forms and soft mint light orbiting a quiet trading desk"></picture></div>
+        <div class="hero-art art-detail"><picture><source srcset="assets/night-orbit-detail.webp" type="image/webp"><img data-art="detail" src="assets/night-orbit-detail.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Dark architectural glass with precise mint highlights"></picture></div>
+        <div class="hero-copy">
+          <p class="overline" data-copy="overline">QUIET SOFTWARE FOR MARKETS THAT KEEP MOVING</p>
+          <h1 data-copy="headline">Markets move after dark. Control stays clear.</h1>
+          <p class="hero-lede">Run your own automated trading bot on your own computer. Your broker, your keys, your machine—stocks, crypto and forex, in paper or live mode.</p>
+          <div class="hero-actions"><a class="button primary" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg">Download for macOS</a><a class="button secondary" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe">Download for Windows</a></div>
+          <p class="fine">Free paper trading · latest release <span class="js-ver">v1.6.4</span> · your keys never leave your computer</p>
         </div>
-        <h3>Simulator</h3>
-        <p>A built-in fake-money market for stocks &amp; crypto. No broker, no sign-up — the fastest way to try Trade Studio.</p>
-        <div class="bk-tags"><span>stocks</span><span>crypto</span></div>
-        <span class="bk-link">No account needed — included</span>
-      </div>
-
-      <a class="broker" href="https://alpaca.markets" target="_blank" rel="noopener">
-        <div class="bk-top">
-          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#FFD400"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#0c1430" text-anchor="middle">A</text></svg></span>
-          <span class="bk-badge ok">Available</span>
+        <div class="hero-stats">
+          <div><b>3</b><span>transparent strategies</span></div><div><b>7</b><span>broker backends</span></div><div><b class="js-users" data-count="168">168+</b><span>installer downloads</span></div>
         </div>
-        <h3>Alpaca</h3>
-        <p>US stocks &amp; crypto. Free unlimited paper trading, fractional shares.</p>
-        <div class="bk-tags"><span>stocks</span><span>crypto</span></div>
-        <span class="bk-link">alpaca.markets ↗</span>
-      </a>
+      </section>
 
-      <a class="broker" href="https://tradier.com" target="_blank" rel="noopener">
-        <div class="bk-top">
-          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#1A6DF0"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">T</text></svg></span>
-          <span class="bk-badge ok">Available</span>
+      <aside class="release-strip">
+        <span>Latest</span><p><b class="js-ver">v1.6.4</b> — one-code iPhone pairing, clearer dashboard P&amp;L and cleaner account sparklines.</p><a href="news.html">Read every update ↗</a>
+      </aside>
+
+      <section class="contents section" data-section="contents">
+        <p class="section-label">THE WHOLE PRODUCT / AT A GLANCE</p>
+        <div class="contents-grid">
+          <a href="#product" data-reveal><span>01</span><b>One local control surface</b><small>Dashboard, account health and risk controls.</small></a>
+          <a href="#strategies" data-reveal><span>02</span><b>Three trading rhythms</b><small>Classic, VWAP Reclaim and Swing Trend.</small></a>
+          <a href="#mobile" data-reveal><span>03</span><b>Phone nearby</b><small>Paper simulation or encrypted remote control.</small></a>
+          <a href="#pricing" data-reveal><span>04</span><b>Paper stays free</b><small>Pay only when you choose live trading.</small></a>
         </div>
-        <h3>Tradier</h3>
-        <p>US stocks &amp; options. Free developer sandbox for paper trading.</p>
-        <div class="bk-tags"><span>stocks</span><span>options</span></div>
-        <span class="bk-link">tradier.com ↗</span>
-      </a>
+      </section>
 
-      <a class="broker" href="https://www.trading212.com" target="_blank" rel="noopener">
-        <div class="bk-top">
-          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#00A7E1"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">212</text></svg></span>
-          <span class="bk-badge ok">Available</span>
+      <section class="product section" id="product" data-section="product">
+        <header class="section-heading" data-reveal><p class="section-label">01 / THE DESK</p><h2>Everything important stays in sight.</h2><p>Trade Studio is a local-first desktop bot and dashboard. It turns market indicators into transparent rules, places orders through the connection you choose, and keeps the stop button close.</p></header>
+        <figure class="dashboard-frame" data-reveal="scale">
+          <figcaption><span></span><span></span><span></span><b>TRADE STUDIO · LOCAL DASHBOARD</b><small>PAUSED · PAPER SAFE</small></figcaption>
+          <picture><source srcset="assets/dashboard.webp" type="image/webp"><img src="assets/dashboard.png" width="1760" height="1271" loading="lazy" decoding="async" alt="The real Trade Studio desktop dashboard"></picture>
+        </figure>
+        <div class="product-notes">
+          <article data-reveal><span>LOCAL-FIRST</span><h3>No Trade Studio cloud account.</h3><p>Broker credentials are encrypted and stored on your machine. The product runs locally and can keep working without a vendor account server.</p></article>
+          <article data-reveal><span>TRANSPARENT</span><h3>No mystery model.</h3><p>Classic indicators, visible entry and exit rules, risk limits, trade history and CSV export. Nothing claims guaranteed profit.</p></article>
+          <figure data-reveal><picture><source srcset="assets/night-orbit-detail.webp" type="image/webp"><img data-art="detail" src="assets/night-orbit-detail.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Dark glass detail in the Trade Studio mint palette"></picture><figcaption>Built to feel understandable, not magical.</figcaption></figure>
         </div>
-        <h3>Trading 212</h3>
-        <p>US stocks &amp; ETFs for EU/UK users. Free practice (demo) mode for paper trading.</p>
-        <div class="bk-tags"><span>stocks</span><span>etfs</span></div>
-        <span class="bk-link">trading212.com ↗</span>
-      </a>
+      </section>
 
-      <a class="broker" href="https://docs.ccxt.com" target="_blank" rel="noopener">
-        <div class="bk-top">
-          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#F7931A"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">₿</text></svg></span>
-          <span class="bk-badge ok">Available</span>
+      <section class="setup section" id="setup" data-section="setup">
+        <header class="section-heading" data-reveal><p class="section-label">02 / START</p><h2>Four steps from download to paper trading.</h2></header>
+        <ol class="step-list">
+          <li data-reveal><span>01</span><div><h3>Download &amp; install</h3><p>Use the macOS or Windows installer. Trade Studio adds a normal app and desktop shortcut.</p></div></li>
+          <li data-reveal><span>02</span><div><h3>Choose a connection</h3><p>Pick one of six external broker backends or start immediately with the built-in Simulator.</p></div></li>
+          <li data-reveal><span>03</span><div><h3>Paste &amp; test</h3><p>Add credentials in the setup wizard. Trade Studio checks the connection read-only before saving.</p></div></li>
+          <li data-reveal><span>04</span><div><h3>Press Resume</h3><p>The bot starts paused, lives in your tray and can be paused or flattened whenever you need.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="principles section" id="principles" data-section="principles">
+        <header class="section-heading" data-reveal><p class="section-label">03 / PRINCIPLES</p><h2>Useful guardrails, not unnecessary machinery.</h2></header>
+        <div class="principle-grid">
+          <article data-reveal><i>⌂</i><h3>Local-first</h3><p>Your keys stay encrypted on your computer.</p></article>
+          <article data-reveal><i>◌</i><h3>Paper &amp; live</h3><p>Practice risk-free, then go live only when you decide.</p></article>
+          <article data-reveal><i>↘</i><h3>One clear setup</h3><p>Install, connect, choose a strategy and resume.</p></article>
+          <article data-reveal><i>≋</i><h3>Statistical</h3><p>Classic indicators and visible rules—not an AI black box.</p></article>
+          <article data-reveal><i>●</i><h3>Quiet in the tray</h3><p>Open, pause or quit without keeping a window in front.</p></article>
+          <article data-reveal><i>⌁</i><h3>Your dashboard</h3><p>Equity, positions, win rate, history and risk in one view.</p></article>
         </div>
-        <h3>Crypto exchanges</h3>
-        <p>100+ exchanges (Coinbase, Kraken, Binance…) via CCXT. Free testnets.</p>
-        <div class="bk-tags"><span>crypto</span></div>
-        <span class="bk-link">docs.ccxt.com ↗</span>
-      </a>
+      </section>
 
-      <a class="broker" href="https://www.oanda.com" target="_blank" rel="noopener">
-        <div class="bk-top">
-          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#C8102E"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">O</text></svg></span>
-          <span class="bk-badge ok">Available</span>
+      <section class="strategies section" id="strategies" data-section="strategies">
+        <header class="section-heading" data-reveal><p class="section-label">04 / STRATEGIES</p><h2>One tool. Three different trading rhythms.</h2><p>Every strategy is explainable and available for unlimited paper testing.</p></header>
+        <div class="strategy-stack">
+          <article data-reveal><span>01 · INTRADAY / ACTIVE</span><h3>Classic</h3><p>Momentum and mean-reversion rules combine Bollinger Bands, RSI, MACD, volume and breakout context.</p><small>Balanced · Patient · Aggressive presets</small></article>
+          <article data-reveal><span>02 · INTRADAY / SELECTIVE</span><h3>VWAP Reclaim</h3><p>Waits for price to regain intraday value, then uses confirmation and risk limits before acting.</p><small>Built for US-stock sessions</small></article>
+          <article data-reveal><span>03 · DAILY / PATIENT</span><h3>Swing Trend</h3><p>A slower daily-candle system designed to hold established trends overnight with fewer decisions.</p><small>Longer horizon · lower activity</small></article>
         </div>
-        <h3>OANDA</h3>
-        <p>Forex &amp; CFDs. Free practice (demo) accounts for paper trading.</p>
-        <div class="bk-tags"><span>forex</span></div>
-        <span class="bk-link">oanda.com ↗</span>
-      </a>
+      </section>
 
-      <a class="broker" href="https://www.interactivebrokers.com" target="_blank" rel="noopener">
-        <div class="bk-top">
-          <span class="bk-logo"><svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><rect width="34" height="34" rx="8" fill="#D81222"/><text x="17" y="23" font-family="-apple-system,Segoe UI,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">IB</text></svg></span>
-          <span class="bk-badge ok">Available</span>
+      <section class="visual-chapter" aria-label="Brand image"><picture><source srcset="assets/night-orbit-hero.webp" type="image/webp"><img data-art="hero" src="assets/night-orbit-hero.jpg" width="1535" height="1024" loading="lazy" decoding="async" alt="Cinematic dark glass forms in the Trade Studio mint palette"></picture><p><span>LOCAL-FIRST</span><b>Your system. Your orbit.</b><small>Your market and controls held in one clear view.</small></p></section>
+
+      <section class="mobile section" id="mobile" data-section="mobile">
+        <div class="mobile-copy" data-reveal><p class="section-label">05 / IPHONE</p><h2>Use the phone on its own—or as a secure remote.</h2><p>The iPhone app has two clear jobs. Paper simulator mode runs locally on the phone. Remote mode pairs to the desktop with one combined code and sends end-to-end encrypted controls.</p><div class="mobile-points"><p><b>Phone-local simulator</b><span>Practice stocks and crypto without a desktop connection.</span></p><p><b>Encrypted remote</b><span>See bots, positions and equity, then pause, resume or flatten.</span></p><p><b>One-code pairing</b><span>No license key field on the phone; the desktop remains license-gated.</span></p></div><small>Remote mode requires the desktop app running and online. Paper simulator mode does not.</small></div>
+        <div class="phone-gallery" data-reveal="scale"><figure><picture><source srcset="assets/mobile-sim.webp" type="image/webp"><img src="assets/mobile-sim.png" width="780" height="1510" loading="lazy" decoding="async" alt="Trade Studio mobile paper simulator"></picture><figcaption>Paper simulator</figcaption></figure><figure><picture><source srcset="assets/mobile-remote.webp" type="image/webp"><img src="assets/mobile-remote.png" width="780" height="1004" loading="lazy" decoding="async" alt="Trade Studio encrypted remote bot controls"></picture><figcaption>Encrypted remote</figcaption></figure></div>
+      </section>
+
+      <section class="brokers section" id="brokers" data-section="brokers">
+        <header class="section-heading" data-reveal><p class="section-label">06 / CONNECTIONS</p><h2>Bring the broker you already use.</h2><p>Seven ready backends across stocks, crypto and forex. Paper trading is free on every connection.</p></header>
+        <div class="broker-list">
+          <article data-reveal><span>01</span><h3>Simulator</h3><p>No account or API keys. Instant paper stocks and crypto.</p><small>BUILT IN · FREE</small></article>
+          <article data-reveal><span>02</span><h3>Alpaca</h3><p>US stocks and crypto with paper trading and fractional shares.</p><small>US STOCKS · CRYPTO</small></article>
+          <article data-reveal><span>03</span><h3>Tradier</h3><p>US stocks and options with a developer sandbox.</p><small>STOCKS · OPTIONS</small></article>
+          <article data-reveal><span>04</span><h3>Trading 212</h3><p>Stocks and ETFs for EU/UK users with practice mode.</p><small>STOCKS · ETFS</small></article>
+          <article data-reveal><span>05</span><h3>Crypto exchanges</h3><p>100+ exchanges such as Coinbase, Kraken and Binance through CCXT.</p><small>CRYPTO · TESTNETS</small></article>
+          <article data-reveal><span>06</span><h3>OANDA</h3><p>Forex and CFDs with practice accounts.</p><small>FOREX · CFDS</small></article>
+          <article data-reveal><span>07</span><h3>Interactive Brokers</h3><p>Global multi-asset access through the local IB Gateway.</p><small>GLOBAL · MULTI-ASSET</small></article>
         </div>
-        <h3>Interactive Brokers</h3>
-        <p>Global multi-asset. Free paper trading via the IBKR Gateway.</p>
-        <div class="bk-tags"><span>stocks</span><span>options</span><span>futures</span><span>forex</span></div>
-        <span class="bk-link">interactivebrokers.com ↗</span>
-      </a>
+        <p class="broker-note">All seven are wired today. Broker names are compatibility references; Trade Studio is not affiliated with them.</p>
+      </section>
 
-    </div>
-    <div class="micro" style="margin-top:16px">All seven are wired up and ready today — pick the one whose account you already have, or start instantly on the Simulator. Interactive Brokers connects through the free IB Gateway you run locally. Logos are placeholders, not official brand marks.</div>
-  </section>
+      <section class="community section" id="community" data-section="community">
+        <div data-reveal><p class="section-label">07 / COMMUNITY</p><h2>Trade with people, not alone.</h2><p>Join the Trade Studio Discord to talk strategy, compare paper results, get help, see update notes and catch giveaways.</p><a class="button discord" href="https://discord.gg/vnxaBFRcMN" target="_blank" rel="noopener">Join the Discord ↗</a></div>
+        <figure data-reveal><picture><source srcset="assets/night-orbit-detail.webp" type="image/webp"><img data-art="detail" src="assets/night-orbit-detail.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Close-up dark glass detail in the Trade Studio mint palette"></picture><figcaption><span><b class="js-users">168+</b> downloads</span><span>Giveaways</span><span>Direct support</span></figcaption></figure>
+      </section>
 
-  <section class="sec" id="community">
-    <h2>Don't trade alone</h2>
-    <p class="lead">The Trade Studio community lives on Discord — compare strategies, show off your bot's equity curve, get help fast, and catch the giveaways.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px">
-      <span class="soonbadge" style="border-color:rgba(88,101,242,0.5);background:rgba(88,101,242,0.14);color:#c7cdfd">💬 strategy talk</span>
-      <span class="soonbadge" style="border-color:rgba(88,101,242,0.5);background:rgba(88,101,242,0.14);color:#c7cdfd">📈 showcase your results</span>
-      <span class="soonbadge" style="border-color:rgba(88,101,242,0.5);background:rgba(88,101,242,0.14);color:#c7cdfd">🆘 fast help</span>
-      <span class="soonbadge" style="border-color:rgba(88,101,242,0.5);background:rgba(88,101,242,0.14);color:#c7cdfd">🎉 giveaways</span>
-    </div>
-    <div style="text-align:center">
-      <a class="dl" style="background:#5865F2;color:#fff" href="https://discord.gg/vnxaBFRcMN" target="_blank" rel="noopener">💬&nbsp; Join the Discord — it's free</a>
-    </div>
-  </section>
+      <section class="modes section" id="modes" data-section="modes">
+        <header class="section-heading" data-reveal><p class="section-label">08 / MODE</p><h2>Paper or live—you choose the risk.</h2></header>
+        <div class="mode-pair"><article data-reveal><span>START HERE</span><h3>Paper trading</h3><p>Trade with simulated money through a broker paper account or the built-in Simulator. There is zero real-money risk, so you can learn how the bot behaves before risking a cent.</p></article><article data-reveal><span>REAL MONEY</span><h3>Live trading</h3><p>Connect a funded broker account to place real orders. Live mode is gated behind explicit confirmation and clear warnings because losses are real.</p></article></div>
+      </section>
 
-  <section class="sec">
-    <h2>Paper or live — you choose</h2>
-    <div class="modes">
-      <div class="mode paper"><span class="badge">Recommended to start</span><h3>Paper trading</h3><p>Trade with simulated money — on your broker's paper account or the built-in Simulator (no sign-up). Zero real-money risk — perfect for learning how the bot behaves before risking a cent.</p></div>
-      <div class="mode live"><span class="badge">Real money</span><h3>Live trading</h3><p>Connect your funded broker account to trade for real. Gated behind an explicit confirmation, with clear warnings — because real money means real risk of loss.</p></div>
-    </div>
-  </section>
+      <section class="pricing section" id="pricing" data-section="pricing">
+        <header class="section-heading" data-reveal><p class="section-label">09 / PRICING</p><h2>Paper is free forever.</h2><p>Subscribe only when you want live accounts with real money. Paid plans are being prepared. Download now and use unlimited paper trading for free.</p></header>
+        <div class="price-list">
+          <article data-reveal><span>FREE FOREVER</span><h3>Paper</h3><b>€0</b><p>Unlimited paper accounts, the full dashboard and all three strategies.</p><a class="plan-action" href="#download">Download free</a></article>
+          <article class="popular" data-reveal><span>MOST POPULAR · LAUNCH OFFER</span><h3>Live Solo</h3><b><s>€14</s> €9<small>/mo</small></b><p>One live account, alerts, schedules, portfolio view, analytics and mobile remote control. €90/year instead of €140.</p><button disabled>Coming soon</button></article>
+          <article data-reveal><span>UP TO THREE LIVE ACCOUNTS</span><h3>Live Plus</h3><b><s>€29</s> €19<small>/mo</small></b><p>Everything in Solo plus three live accounts, portfolio protection, weekly reports and crypto presets. €190/year instead of €290.</p><button disabled>Coming soon</button></article>
+        </div>
+        <div class="comparison" data-reveal>
+          <header><h3>Compare every included feature</h3><p>Launch pricing ends August 4, 2026. Early subscribers keep their launch price.</p></header>
+          <div class="table-scroll"><table><thead><tr><th>Feature</th><th>Paper<small>€0</small></th><th>Solo<small>€9/mo</small></th><th>Plus<small>€19/mo</small></th></tr></thead><tbody>
+            <tr data-feature-row><th>Unlimited paper bots</th><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Classic · VWAP Reclaim · Swing Trend</th><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Patient · Aggressive · Active presets</th><td>Balanced only</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Live trading with real money</th><td>—</td><td>1 account</td><td>Up to 3</td></tr>
+            <tr data-feature-row><th>Trading schedules</th><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Auto-pause drawdown and loss-streak limits</th><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Discord and Telegram trade alerts</th><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Combined portfolio equity view</th><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Trade analytics and CSV export</th><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Portfolio-wide drawdown protection</th><td>—</td><td>—</td><td>✓</td></tr>
+            <tr data-feature-row><th>Weekly Discord/Telegram report</th><td>—</td><td>—</td><td>✓</td></tr>
+            <tr data-feature-row><th>Crypto trading and crypto presets</th><td>—</td><td>—</td><td>✓</td></tr>
+            <tr data-feature-row><th>Local-first broker credentials</th><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr data-feature-row><th>Free auto-updates</th><td>✓</td><td>✓</td><td>✓</td></tr>
+          </tbody></table></div>
+        </div>
+      </section>
 
-  <section class="sec" id="pricing">
-    <h2>Simple pricing</h2>
-    <p class="lead">Paper trading is free forever. Subscribe only when you want to run live accounts with real money.</p>
-    <div class="feats" style="margin-top:34px">
-      <div class="feat" style="border-color:rgba(63,182,168,0.3);background:rgba(63,182,168,0.06)">
-        <span style="display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(63,182,168,0.18);color:var(--teal)">Free forever</span>
-        <h3 style="margin-top:12px">Paper</h3>
-        <p style="font-size:30px;font-weight:700;color:var(--tx);margin:6px 0 4px">€0</p>
-        <p>Unlimited paper accounts — the full bot and dashboard, with zero real-money risk.</p>
-        <div class="micro" style="margin-top:12px">⏳ Coming soon</div>
-      </div>
-      <div class="feat" style="border-color:rgba(85,182,133,0.45);background:rgba(85,182,133,0.07)">
-        <span style="display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(85,182,133,0.2);color:#c8f6d3">Most popular</span>
-        <h3 style="margin-top:12px">Live Solo</h3>
-        <p style="font-size:30px;font-weight:700;color:var(--tx);margin:6px 0 4px"><s style="font-size:18px;font-weight:500;color:var(--mut)">€14</s> €9<small style="font-size:14px;font-weight:500;color:var(--mut)"> / mo</small></p>
-        <p style="margin:0 0 6px"><span style="display:inline-block;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(85,182,133,0.16);color:#c8f6d3">🔥 Launch offer — ends Aug 4, 2026</span></p>
-        <p>One live account with real money — plus trade alerts, the portfolio view and analytics. Or €90/year <s style="color:var(--mut)">€140</s>. Subscribe now and keep this price. Cancel anytime.</p>
-        <div class="micro" style="margin-top:12px">⏳ Coming soon</div>
-      </div>
-      <div class="feat" style="border-color:rgba(226,75,74,0.3);background:rgba(226,75,74,0.06)">
-        <span style="display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(226,75,74,0.18);color:#ff8c8c">Real money</span>
-        <h3 style="margin-top:12px">Live Plus</h3>
-        <p style="font-size:30px;font-weight:700;color:var(--tx);margin:6px 0 4px"><s style="font-size:18px;font-weight:500;color:var(--mut)">€29</s> €19<small style="font-size:14px;font-weight:500;color:var(--mut)"> / mo</small></p>
-        <p style="margin:0 0 6px"><span style="display:inline-block;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(85,182,133,0.16);color:#c8f6d3">🔥 Launch offer — ends Aug 4, 2026</span></p>
-        <p>Up to 3 live accounts running in parallel, with everything in Solo. Or €190/year <s style="color:var(--mut)">€290</s>. Subscribe now and keep this price. Cancel anytime.</p>
-        <div class="micro" style="margin-top:12px">⏳ Coming soon</div>
-      </div>
-    </div>
-    <h3 class="cmp-title">What's included in each plan</h3>
-    <div class="cmp-wrap">
-      <table class="cmp">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Paper<small>Free</small></th>
-            <th class="hl">Live Solo<small>€9/mo · €90/yr launch offer</small></th>
-            <th>Live Plus<small>€19/mo · €190/yr launch offer</small></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th>Unlimited paper bots</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>All strategies — Classic · VWAP Reclaim · Swing Trend</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Strategy presets — Patient · Aggressive · Active</th><td class="no">Balanced only</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Live trading (real money)</th><td class="no">—</td><td class="hl">1 account</td><td>up to 3</td></tr>
-          <tr><th>Trading schedule — only trade the days &amp; hours you choose</th><td class="no">—</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Auto-pause risk limits (max drawdown · loss-streak)</th><td class="no">—</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Trade alerts — Discord &amp; Telegram messages when a bot trades</th><td class="no">—</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Portfolio view — all your bots as one combined equity curve</th><td class="no">—</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Trade analytics &amp; CSV export — win rate by symbol, monthly P&amp;L</th><td class="no">—</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Portfolio protection — auto-flatten every bot on a daily drawdown limit</th><td class="no">—</td><td class="hl no">—</td><td class="yes">✓</td></tr>
-          <tr><th>Weekly performance report — your week in review, by Discord/Telegram</th><td class="no">—</td><td class="hl no">—</td><td class="yes">✓</td></tr>
-          <tr><th>Crypto trading + crypto presets</th><td class="no">—</td><td class="hl no">—</td><td class="yes">✓</td></tr>
-          <tr><th>Local-first — your keys stay on your machine</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-          <tr><th>Free auto-updates</th><td class="yes">✓</td><td class="hl yes">✓</td><td class="yes">✓</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="micro" style="margin-top:14px">🔥 Launch offer: subscribe before <b>August 4, 2026</b> and keep €9/€19 pricing for as long as you stay subscribed. Standard pricing afterwards: Solo €14/mo · €140/yr, Plus €29/mo · €290/yr.</div>
-    <div class="micro" style="margin-top:10px">Margin is always on; optional leverage unlocks over $2,000 of equity, on any plan. Yearly billing saves ~17%.</div>
-    <div class="micro" style="margin-top:10px">Live trading uses real money and can lose it — including amplified losses on margin. Not financial advice.</div>
-  </section>
+      <section class="faq section" id="faq" data-section="faq">
+        <header class="section-heading" data-reveal><p class="section-label">10 / QUESTIONS</p><h2>Read this before you start.</h2></header>
+        <div class="faq-list">
+          <details data-faq data-reveal><summary>Is it free?</summary><p>Paper trading is free forever: unlimited practice accounts and no card. Live Solo is €9/month and Live Plus €19/month during the launch offer; standard pricing is €14/€29 after August 4, 2026. You may also need a broker account, unless you use the built-in Simulator.</p></details>
+          <details data-faq data-reveal><summary>Do my API keys leave my computer?</summary><p>No. Broker credentials are stored only on your own machine. Trade Studio has no account server and does not upload them.</p></details>
+          <details data-faq data-reveal><summary>Will it make me money?</summary><p>There are no guarantees. Trade Studio runs rules-based strategies; it is not financial advice or a money machine. Trading carries risk of loss. Start on paper.</p></details>
+          <details data-faq data-reveal><summary>What do I need to run it?</summary><p>A Mac or Windows 10/11 PC. Add one of the seven supported connections or use the built-in Simulator. No Python is required.</p></details>
+          <details data-faq data-reveal><summary>Will I always get the newest version?</summary><p>Yes. The release links always point to the newest build, and the installed app can update itself.</p></details>
+          <details data-faq data-reveal><summary>macOS says the app is damaged?</summary><p>The current Mac build is not notarized yet. Drag Trade Studio into Applications, then run <code>xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code> once in Terminal. On Windows SmartScreen, choose More info → Run anyway.</p></details>
+          <details data-faq data-reveal><summary>Is my money at risk in live mode?</summary><p>Yes. Live mode places real orders with real funds and can lose money. It is gated behind explicit confirmation. Practice on paper first.</p></details>
+          <details data-faq data-reveal><summary>How do I stop it?</summary><p>Pause from the dashboard at any time, flatten open positions if needed, or quit completely from the system-tray icon.</p></details>
+        </div>
+      </section>
 
-  <section class="sec">
-    <h2>Questions</h2>
-    <div class="faq">
-      <details><summary>Is it free?</summary><p>Paper trading is free, forever — unlimited practice accounts, no card required. Live trading with real money is a paid subscription: Live Solo €9/mo and Live Plus €19/mo at the launch-offer price (standard €14/€29 after August&nbsp;4,&nbsp;2026 — early subscribers keep their price). You'll also need an account at one of the supported brokers — or none at all if you stick to the built-in Simulator.</p></details>
-      <details><summary>Do my API keys leave my computer?</summary><p>No. Your keys are saved only on your own machine (in your local app folder). There's no Trade Studio server and nothing is uploaded anywhere.</p></details>
-      <details><summary>Will it make me money?</summary><p>There are no guarantees. Trade Studio is a tool that runs a rules-based strategy — it is not financial advice and not a money machine. Trading carries real risk of loss. Start in paper mode.</p></details>
-      <details><summary>What do I need to run it?</summary><p>A Mac (macOS) or a Windows 10/11 PC. To trade a real broker you'll add a free account at one of the seven supported backends (Alpaca, Trading 212, Tradier, Interactive Brokers, a crypto exchange, OANDA) — or use the built-in Simulator with no account at all. No Python, no setup beyond pasting your keys.</p></details>
-      <details><summary>Will I always get the newest version?</summary><p>Yes — the download button always serves the latest release, so you never grab an old build. After installing, Trade Studio also auto-updates itself from inside the app.</p></details>
-      <details><summary>macOS says the app “can't be opened” or “is damaged”?</summary><p>The Mac build isn't notarized with an Apple Developer&nbsp;ID yet, so macOS quarantines it on download — sometimes with a “can't be opened,” sometimes a “damaged” message. To run it: drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder, open <b>Terminal</b>, and run this once:</p><p><code style="display:block;padding:10px 12px;background:#05070d;border-radius:8px;color:#7fe0b0;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;overflow-x:auto;white-space:pre;user-select:all">xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code></p><p>Then open Trade&nbsp;Studio normally. This just clears the “downloaded from the internet” flag macOS adds to unsigned apps — safe because you got it from this site. A signed build is on the way. <b>On Windows:</b> if SmartScreen appears, click <b>More info → Run anyway</b>.</p></details>
-      <details><summary>Is my money at risk in live mode?</summary><p>Yes. Live mode places real orders with your real funds and can lose money. It's gated behind an explicit confirmation. Practice in paper mode first.</p></details>
-      <details><summary>How do I stop it?</summary><p>Pause it from the dashboard at any time, or quit entirely from the system-tray icon.</p></details>
-    </div>
-  </section>
+      <section class="support section" id="support" data-section="support">
+        <header class="section-heading" data-reveal><p class="section-label">11 / SUPPORT</p><h2>Something broken? Tell us clearly.</h2><p>Every report gets read. Include what you did, what happened and the app version from Settings.</p></header>
+        <div class="support-list">
+          <article data-reveal><span>DIRECT</span><h3>Send a report</h3><p>Describe the problem without needing an email app. It goes straight to the developer.</p>
+            <form id="sup-form">
+              <label class="sr-only" for="sup-msg">Problem description</label>
+              <textarea id="sup-msg" required minlength="10" rows="4" placeholder="What happened? What did you expect?"></textarea>
+              <label class="sr-only" for="sup-contact">Email for a reply, optional</label>
+              <input id="sup-contact" type="email" autocomplete="email" placeholder="Email for a reply — optional">
+              <input id="sup-hp" class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button id="sup-btn" type="submit">Send report</button>
+              <small id="sup-status" role="status" aria-live="polite"></small>
+            </form>
+          </article>
+          <article data-reveal><span>COMMUNITY</span><h3>Join Discord</h3><p>Talk strategies, show results, ask other users for help and catch giveaways.</p><a class="button secondary" href="https://discord.gg/vnxaBFRcMN" target="_blank" rel="noopener">Join Discord ↗</a></article>
+          <article data-reveal><span>TRACKER</span><h3>GitHub issues</h3><p>Open a public issue and follow the fix from report to release with a free GitHub account.</p><a class="button secondary" href="https://github.com/moorejasper060-oss/trade-studio/issues/new" target="_blank" rel="noopener">Open an issue ↗</a></article>
+        </div>
+      </section>
 
-  <section class="sec" id="support">
-    <h2>Something broken? Tell us.</h2>
-    <p class="lead">Every report gets read. The more detail you give (what you did, what happened, your app version from Settings), the faster it gets fixed.</p>
-    <div class="feats" style="margin-top:34px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-      <div class="feat">
-        <h3 style="text-align:center">📮 Send a report</h3>
-        <p style="margin-top:8px;text-align:center">Goes straight to the developer — no account, no email app needed. In the app, <b>Settings → Support</b> pre-fills your version info.</p>
-        <form id="sup-form" style="margin-top:16px;display:flex;flex-direction:column;gap:10px" onsubmit="return supSend(event)">
-          <textarea id="sup-msg" required minlength="10" rows="5" placeholder="What happened? What did you expect instead? (App version from Settings helps a lot.)" style="resize:vertical;background:#05070d;border:0.5px solid var(--bd2);border-radius:10px;padding:11px 13px;color:var(--tx);font:inherit;font-size:14px"></textarea>
-          <input id="sup-contact" type="email" placeholder="Your email — optional, only if you'd like a reply" style="background:#05070d;border:0.5px solid var(--bd2);border-radius:10px;padding:11px 13px;color:var(--tx);font:inherit;font-size:14px">
-          <input id="sup-hp" type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <button type="submit" class="dl" style="margin-top:4px;padding:12px 24px;font-size:15px;border:0;cursor:pointer;justify-content:center" id="sup-btn">Send report</button>
-          <div class="micro" id="sup-status" style="margin-top:0;text-align:center"></div>
-        </form>
-      </div>
-      <div class="feat" style="text-align:center">
-        <h3>💬 Join the community</h3>
-        <p style="margin-top:8px">Talk strategies, show off your bot's results, get help from other users — and catch the giveaways. 🎉</p>
-        <a class="dl" style="margin-top:18px;padding:12px 24px;font-size:15px;background:#5865F2;color:#fff" href="https://discord.gg/vnxaBFRcMN" target="_blank" rel="noopener">Join the Discord</a>
-      </div>
-      <div class="feat" style="text-align:center">
-        <h3>🐙 GitHub issues</h3>
-        <p style="margin-top:8px">Prefer a tracker? Open an issue and follow the fix from report to release — a free GitHub account is all you need.</p>
-        <a class="dl" style="margin-top:18px;padding:12px 24px;font-size:15px;background:rgba(255,255,255,0.08);color:var(--tx)" href="https://github.com/moorejasper060-oss/trade-studio/issues/new" target="_blank" rel="noopener">Open an issue ↗</a>
-      </div>
-    </div>
-  </section>
-  <script>
-  async function supSend(e){
-    e.preventDefault();
-    var btn=document.getElementById('sup-btn'), st=document.getElementById('sup-status');
-    btn.disabled=true; btn.textContent='Sending…'; st.textContent='';
-    try{
-      var r=await fetch('https://trade-studio-support.tradestudio.workers.dev/report',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:document.getElementById('sup-msg').value,
-                             contact:document.getElementById('sup-contact').value,
-                             website:document.getElementById('sup-hp').value,
-                             diag:'via website · '+navigator.userAgent})});
-      var d=await r.json();
-      if(d&&d.ok){ btn.textContent='Sent ✓ — thank you!'; document.getElementById('sup-msg').value=''; }
-      else{ btn.disabled=false; btn.textContent='Send report';
-            st.textContent=(d&&d.error==='rate_limited')?'Too many reports from this connection — try again later.':'Could not send — please try the GitHub option.'; }
-    }catch(_){ btn.disabled=false; btn.textContent='Send report'; st.textContent='Could not send — please try the GitHub option.'; }
-    return false;
-  }
-  </script>
+      <section class="download section" id="download" data-section="download">
+        <div class="download-intro" data-reveal><p class="section-label">12 / DOWNLOAD</p><h2>Get Trade Studio.</h2><p>Free for macOS and Windows. Paper trading stays free forever, and the buttons always target the latest release.</p><div class="hero-actions"><a class="button primary" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg">Download for macOS</a><a class="button secondary" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe">Download for Windows</a></div><p class="fine">Latest release <span class="js-ver">v1.6.4</span> · free auto-updates after installation</p></div>
+        <div class="install-card" data-reveal><p class="section-label">FIRST LAUNCH ON MACOS</p><h3>One unsigned-app step.</h3><ol><li>Open the DMG and drag Trade Studio into Applications.</li><li>Open Terminal with ⌘-Space.</li><li>Paste the command below and press Return.</li></ol><div class="command"><code>xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code><button type="button" data-copy-command>Copy</button></div><small>This clears the downloaded-app quarantine flag once. On Windows SmartScreen, choose More info → Run anyway. A signed Mac build is planned.</small></div>
+      </section>
+    </main>
 
-  <section class="sec cta" id="get">
-    <h2>Get Trade Studio</h2>
-    <p class="lead" style="margin-top:14px">Free download for macOS &amp; Windows — paper trading is free forever. The buttons always grab the latest release, so you're never out of date.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px">
-      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio.dmg" style="margin-top:0">⬇&nbsp; Download for macOS</a>
-      <a class="dl" href="https://github.com/moorejasper060-oss/trade-studio/releases/latest/download/TradeStudio-Setup.exe" style="margin-top:0">⬇&nbsp; Download for Windows</a>
-    </div>
-    <div class="micro" style="margin-top:14px">Free · macOS &amp; Windows · always the latest release (<span class="js-ver">v1.6.4</span>)</div>
-    <div class="micro" style="margin-top:8px">First launch is unsigned. On <b>Windows</b>: if SmartScreen appears, click <b>More info → Run anyway</b>. On <b>macOS</b>, see the one-time step below 👇 Auto-updates after that.</div>
-    <div class="cmdbox">
-      <b>🍎 First launch on macOS</b><br>
-      The Mac app isn't notarized with an Apple Developer&nbsp;ID yet, so macOS may say it <b>“can't be opened”</b> or <b>“is damaged.”</b> That's expected — here's how to run it:
-      <ol style="margin:10px 0 4px;padding-left:20px">
-        <li>Open the downloaded <b>.dmg</b> and drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder.</li>
-        <li>Open <b>Terminal</b> (press ⌘-Space, type <b>Terminal</b>, hit Return).</li>
-        <li>Paste this command and press Return:</li>
-      </ol>
-      <code>xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code>
-      Now open <b>Trade&nbsp;Studio</b> normally (double-click). You only do this once. The command just clears the “downloaded from the internet” flag macOS adds to unsigned apps — safe because you downloaded it here. A signed build is on the way.
-    </div>
-  </section>
-</div>
-
-<footer>
-  <div class="wrap">
-    <p class="disc">Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss — including, and especially, in live mode. You are solely responsible for your own trades and for securing your own account. Not affiliated with Alpaca, Trading 212, Tradier, Interactive Brokers, OANDA, or any other broker or exchange.</p>
-    <p class="by">Built by <b>Jasper Moore</b></p>
-    <p class="cr">© 2026 Jasper Moore · Trade Studio · <span class="js-ver">v1.6.4</span> · macOS &amp; Windows</p>
-    <p style="margin-top:12px;font-size:12px;color:#6b7488">
-      <a href="news.html" style="color:#3fb6a8;text-decoration:none">News</a> ·
-      <a href="impressum.html" style="color:#3fb6a8;text-decoration:none">Impressum</a> ·
-      <a href="terms.html" style="color:#3fb6a8;text-decoration:none">Terms</a> ·
-      <a href="privacy.html" style="color:#3fb6a8;text-decoration:none">Privacy</a> ·
-      <a href="refund.html" style="color:#3fb6a8;text-decoration:none">Refunds &amp; Withdrawal</a>
-    </p>
+    <footer>
+      <div class="risk"><b>Risk disclosure</b><p>Trade Studio is a tool, not financial advice, and comes with no warranty or guarantee of profit. Trading involves real risk of loss—especially in live mode. You are responsible for your trades and account security. Trade Studio is not affiliated with any supported broker or exchange.</p></div>
+      <div class="footer-row"><a class="site-brand" href="#top"><img src="assets/icon.png" width="34" height="34" alt=""><b>Trade Studio</b></a><span>Built by Jasper Moore · © 2026 · <span class="js-ver">v1.6.4</span> · macOS &amp; Windows</span><nav aria-label="Legal"><a href="news.html">News</a><a href="impressum.html">Impressum</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund.html">Refunds</a></nav></div>
+    </footer>
   </div>
-</footer>
-<script>
-// Keep the displayed version in sync with the latest GitHub release (button already
-// points at /releases/latest/download, which always serves the newest build).
-(function(){
-  try{
-    fetch('https://api.github.com/repos/moorejasper060-oss/trade-studio/releases/latest')
-      .then(function(r){return r.ok ? r.json() : null;})
-      .then(function(d){
-        if(d && d.tag_name){
-          var v = d.tag_name.replace(/^v/,'');
-          var els = document.querySelectorAll('.js-ver');
-          for(var i=0;i<els.length;i++){ els[i].textContent = 'v'+v; }
-        }
-      }).catch(function(){});
-  }catch(e){}
-})();
-// Live "users" count = total installer downloads across all GitHub releases.
-// Graceful: keeps the baked-in fallback number on any failure / API rate-limit.
-(function(){
-  try{
-    fetch('https://api.github.com/repos/moorejasper060-oss/trade-studio/releases?per_page=100')
-      .then(function(r){return r.ok ? r.json() : null;})
-      .then(function(rs){
-        if(!rs || !rs.length) return;
-        var n=0;
-        for(var i=0;i<rs.length;i++){ var a=rs[i].assets||[];
-          for(var j=0;j<a.length;j++){ var nm=(a[j].name||'');
-            if(nm.slice(-4)==='.dmg' || nm.slice(-4)==='.exe') n+=(a[j].download_count||0); } }
-        if(n>0){ var els=document.querySelectorAll('.js-users');
-          for(var k=0;k<els.length;k++){ els[k].textContent=n.toLocaleString('en-US'); } }
-      }).catch(function(){});
-  }catch(e){}
-})();
-</script>
 
-<!-- macOS one-time setup: surfaced at download time so it isn't missed (full steps also live at #get) -->
-<style>
-  .macmodal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(3,5,10,0.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-  .macmodal[hidden]{display:none}
-  .macmodal-box{position:relative;max-width:460px;width:100%;background:#0b1226;border:0.5px solid rgba(255,255,255,0.16);border-radius:18px;padding:30px 28px 26px;box-shadow:0 30px 80px rgba(0,0,0,0.5);color:#eef2fb}
-  .macmodal-emoji{font-size:34px;text-align:center}
-  .macmodal-box h3{font-size:21px;font-weight:600;margin:8px 0 12px;letter-spacing:-0.2px;text-align:center}
-  .macmodal-box p{font-size:14px;color:#aab3c7;line-height:1.65}
-  .macmodal-box ol{margin:12px 0;padding-left:20px;font-size:14px;color:#aab3c7;line-height:1.7}
-  .macmodal-cmd{display:flex;gap:8px;align-items:stretch;margin:12px 0 6px}
-  .macmodal-cmd code{flex:1;display:block;padding:11px 12px;background:#05070d;border:0.5px solid rgba(255,255,255,0.09);border-radius:9px;color:#7fe0b0;font-family:ui-monospace,Menlo,monospace;font-size:12px;overflow-x:auto;white-space:pre;user-select:all}
-  .macmodal-cmd button{flex:0 0 auto;background:#55b685;color:#06281f;font-weight:700;font-size:13px;border:0;border-radius:9px;padding:0 14px;cursor:pointer}
-  .macmodal-note{font-size:12.5px;color:#6b7488;margin-top:10px}
-  .macmodal-ok{display:block;margin:18px auto 0;background:#55b685;color:#06281f;font-weight:700;font-size:15px;border:0;border-radius:11px;padding:12px 26px;cursor:pointer}
-  .macmodal-x{position:absolute;top:10px;right:14px;background:none;border:0;color:#aab3c7;font-size:26px;line-height:1;cursor:pointer}
-  .mac-hero-note{margin:14px auto 0;font-size:13px;color:#c8f6d3;background:rgba(85,182,133,0.12);border:0.5px solid rgba(85,182,133,0.35);border-radius:999px;padding:8px 16px;display:inline-flex;gap:7px;align-items:center;cursor:pointer}
-</style>
-<div id="macModal" class="macmodal" role="dialog" aria-modal="true" aria-labelledby="macModalTitle" hidden>
-  <div class="macmodal-box">
-    <button class="macmodal-x" aria-label="Close" onclick="closeMacModal()">&times;</button>
-    <div class="macmodal-emoji">🍎</div>
-    <h3 id="macModalTitle">One quick step on macOS</h3>
-    <p>Your download has started. The Mac app isn't notarized with an Apple Developer&nbsp;ID <em>yet</em>, so on first launch macOS may say it <b>“can't be opened”</b> or <b>“is damaged.”</b> That's expected — do this once:</p>
-    <ol>
-      <li>Open the downloaded <b>.dmg</b> and drag <b>Trade&nbsp;Studio</b> into your <b>Applications</b> folder.</li>
-      <li>Open <b>Terminal</b> (press <b>⌘-Space</b>, type <b>Terminal</b>, press Return).</li>
-      <li>Paste this command and press Return:</li>
-    </ol>
-    <div class="macmodal-cmd">
-      <code id="macCmd">xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code>
-      <button id="macCopy" type="button" onclick="copyMacCmd()">Copy</button>
+  <div id="mac-modal" class="mac-modal" role="dialog" aria-modal="true" aria-labelledby="mac-modal-title" hidden>
+    <div class="mac-modal-box">
+      <button class="mac-modal-close" type="button" aria-label="Close macOS setup instructions">×</button>
+      <p class="section-label">FIRST LAUNCH ON MACOS</p>
+      <h2 id="mac-modal-title">One quick step after download.</h2>
+      <p>The current Mac build is not notarized yet, so macOS may say it cannot be opened or is damaged. Drag Trade Studio into Applications, open Terminal, and run this once:</p>
+      <div class="command"><code>xattr -dr com.apple.quarantine "/Applications/Trade Studio.app"</code><button type="button" data-copy-command>Copy</button></div>
+      <p class="mac-modal-note">Then open Trade Studio normally. This only clears the quarantine flag attached to the download.</p>
+      <button class="button primary mac-modal-ok" type="button">Got it</button>
     </div>
-    <p class="macmodal-note">Then open <b>Trade&nbsp;Studio</b> normally — you only do this once. It just clears the “downloaded from the internet” flag macOS adds to unsigned apps (safe, since you got it here). A signed build is on the way; the app auto-updates after this.</p>
-    <button class="macmodal-ok" type="button" onclick="closeMacModal()">Got it</button>
   </div>
-</div>
-<script>
-(function(){
-  try{
-    var modal = document.getElementById('macModal');
-    var isMac = /Mac/.test(navigator.platform || '') || (/Mac OS X/.test(navigator.userAgent) && !/iPhone|iPad|iPod/.test(navigator.userAgent));
-    window.closeMacModal = function(){ if(modal){ modal.hidden = true; } };
-    window.copyMacCmd = function(){
-      var el = document.getElementById('macCmd'); if(!el){ return; }
-      if(navigator.clipboard){ navigator.clipboard.writeText(el.textContent).catch(function(){}); }
-      var b = document.getElementById('macCopy'); if(b){ b.textContent = 'Copied ✓'; setTimeout(function(){ b.textContent = 'Copy'; }, 1500); }
-    };
-    function openMac(){ if(modal){ modal.hidden = false; } }
-    var dmg = document.querySelectorAll('a[href$="TradeStudio.dmg"]');
-    for(var i=0;i<dmg.length;i++){ dmg[i].addEventListener('click', function(){ setTimeout(openMac, 300); }); }
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeMacModal(); } });
-    if(modal){ modal.addEventListener('click', function(e){ if(e.target === modal){ closeMacModal(); } }); }
-    if(isMac && dmg.length){
-      var row = dmg[0].parentNode, note = document.createElement('div');
-      note.className = 'mac-hero-note'; note.setAttribute('role','button');
-      note.textContent = '🍎 macOS needs one quick step after download — click to see it';
-      note.addEventListener('click', openMac);
-      if(row && row.parentNode){ row.parentNode.insertBefore(note, row.nextSibling); }
-    }
-  }catch(e){}
-})();
-</script>
+  <script src="site.js?v=20260720" defer></script>
 </body>
 </html>
