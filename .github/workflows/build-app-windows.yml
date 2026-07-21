@@ -38,8 +38,32 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Configure private beta installer channel
+        shell: bash
+        run: |
+          echo "TRADESTUDIO_BUILD_CHANNEL=beta" >> "$GITHUB_ENV"
+          echo "TRADESTUDIO_BUILD_ACCOUNT_URL=https://trade-studio-account-staging.tradestudio.workers.dev" >> "$GITHUB_ENV"
+          echo "TRADESTUDIO_BUILD_INTELLIGENCE_URL=https://trade-studio-intelligence-staging.tradestudio.workers.dev" >> "$GITHUB_ENV"
+          echo "TRADESTUDIO_BUILD_WEBSITE_URL=https://tradestudio.digga.ai" >> "$GITHUB_ENV"
+
       - name: Build one-file .exe
         run: pyinstaller trade_studio.spec --noconfirm --clean
+
+      - name: Verify embedded beta channel
+        shell: pwsh
+        run: |
+          $env:TRADESTUDIO_SELFTEST = "build-config"
+          $env:TRADESTUDIO_EXPECT_CHANNEL = "beta"
+          & "dist\TradeStudio.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Verify updater transport
+        shell: pwsh
+        run: |
+          $env:TRADESTUDIO_UPDATE_CHANNEL = "stable"
+          $env:TRADESTUDIO_SELFTEST = "update"
+          & "dist\TradeStudio.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Install Inno Setup
         run: choco install innosetup -y --no-progress
@@ -50,5 +74,5 @@ jobs:
       - name: Upload installer artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TradeStudio-Windows
+          name: TradeStudio-Windows-Beta
           path: installer_output/TradeStudio-Setup.exe
